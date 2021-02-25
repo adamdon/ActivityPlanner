@@ -4,3 +4,7 @@ node_modules/
 
 workspace.xml
 ActivityPlanner.iml
+/backend/.env
+.env
+**.env
+**/.env

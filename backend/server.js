@@ -1,9 +1,14 @@
+import dotenv from "dotenv";
 import express from "express";
 import livereload from "livereload";
 import connectLivereload from "connect-livereload";
 import {router} from "./router.js";
 
 
+
+
+//Loads variables from ".env" file into environment
+dotenv.config();
 
 
 //Sets up livereload so changes to html will auto refresh browser without plugins
@@ -20,7 +25,6 @@ expressApp.use(connectLivereload()); //monkey patches HTML with livereload.js fo
 expressApp.use(express.json());
 expressApp.use(express.static("../frontend"));
 expressApp.use("/", router);
-
 
 
 //start server
