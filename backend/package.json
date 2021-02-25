@@ -3,21 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "scripts":
-  {
+  "scripts": {
     "server": "nodemon --experimental-modules server --ignore ../frontend"
   },
   "author": "Adam Don",
   "license": "MIT",
   "type": "module",
-  "dependencies":
-  {
-    "express": "^4.17.1",
+  "dependencies": {
     "connect-livereload": "^0.6.1",
-    "livereload": "^0.9.1"
+    "express": "^4.17.1",
+    "livereload": "^0.9.1",
+    "mongoose": "^5.11.18"
   },
-  "devDependencies":
-  {
+  "devDependencies": {
     "nodemon": "^2.0.6"
   }
 }
