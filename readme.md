@@ -8,7 +8,7 @@ A web application that lets you define your own training schedule for each week 
 With node.js and npm installed run the following command:
 
 ```bash
-cd backend && npm run start
+cd backend && npm run server
 ```
 
 
