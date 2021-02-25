@@ -2,9 +2,7 @@ node_modules/
 .idea/
 .git/
 
+**.env
+
 workspace.xml
 ActivityPlanner.iml
-/backend/.env
-.env
-**.env
-**/.env

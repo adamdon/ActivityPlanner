@@ -11,6 +11,14 @@ With node.js and npm installed run the following command:
 cd backend && npm run server
 ```
 
+## Configuration
+
+Place ".env" file into backend directory with the following variables:
+
+```bash
+MONGO_URI=**************************
+```
+
 
 ## Usage
 

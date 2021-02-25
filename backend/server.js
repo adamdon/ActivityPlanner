@@ -1,14 +1,9 @@
-import dotenv from "dotenv";
+import dotenv from "dotenv/config.js";
 import express from "express";
 import livereload from "livereload";
 import connectLivereload from "connect-livereload";
 import {router} from "./router.js";
 
-
-
-
-//Loads variables from ".env" file into environment
-dotenv.config();
 
 
 //Sets up livereload so changes to html will auto refresh browser without plugins
