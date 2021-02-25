@@ -1,14 +1,4 @@
 import mongoose from "mongoose";
-// import config from "../config/default";
-// import config from '../config/default.js'
-
-
-
-
-
-// let mongoURI = config.get("mongoURI");
-// let mongoURI = config.mongoURI;
-
 
 
 export class database
@@ -25,7 +15,7 @@ export class database
             mongoose.set('useUnifiedTopology', true);
             mongoose.set('useCreateIndex', true);
             mongoose.set('useFindAndModify', false);
-            await mongoose.connect(mongoURI, null, null );
+            await mongoose.connect(process.env.MONGO_URI, null, null );
 
             console.log("#MongoDB | ...Connected")
         }

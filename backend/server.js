@@ -3,6 +3,7 @@ import express from "express";
 import livereload from "livereload";
 import connectLivereload from "connect-livereload";
 import {router} from "./router.js";
+import {database} from "./database.js";
 
 
 
@@ -11,6 +12,10 @@ let livereloadServer = livereload.createServer({extraExts : ["vue"]});
 
 livereloadServer.watch("../frontend");
 livereloadServer.server.once("connection", () => {setTimeout(() => {livereloadServer.refresh("/");}, 100);});
+
+
+//Connecting to database using process.env.MONGO_URI environment variables
+await database.connect();
 
 
 //Set request handles

@@ -13,7 +13,7 @@ cd backend && npm run server
 
 ## Configuration
 
-Place ".env" file into backend directory with the following variables:
+Place ".env" file into the "backend" directory with the following variables:
 
 ```bash
 MONGO_URI=**************************

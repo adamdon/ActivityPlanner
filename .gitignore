@@ -3,6 +3,5 @@ node_modules/
 .git/
 
 **.env
-
 workspace.xml
 ActivityPlanner.iml
