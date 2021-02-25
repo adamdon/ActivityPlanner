@@ -1,6 +1,7 @@
 import express from "express";
 import livereload from "livereload";
 import connectLivereload from "connect-livereload";
+import {router} from "./router.js";
 
 
 
@@ -18,6 +19,8 @@ let expressApp = express();
 expressApp.use(connectLivereload()); //monkey patches HTML with livereload.js for auto F5
 expressApp.use(express.json());
 expressApp.use(express.static("../frontend"));
+expressApp.use("/", router);
+
 
 
 //start server

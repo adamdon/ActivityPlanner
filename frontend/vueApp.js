@@ -2,8 +2,8 @@ import Navbar from './component/Navbar.js'
 import ContainerLayout from './component/ContainerLayout.js'
 import ContainerContent from './component/ContainerContent.js';
 
-import AccountCreate from "./component/AccountCreate.js";
-import AccountLogin from "./component/AccountLogin.js";
+import UserCreate from "./component/UserCreate.js";
+import UserLogin from "./component/UserLogin.js";
 
 
 
@@ -11,7 +11,7 @@ import AccountLogin from "./component/AccountLogin.js";
 export default
 {
     name: "vueApp",
-    components: {Navbar, ContainerLayout, ContainerContent, AccountCreate, AccountLogin},
+    components: {Navbar, ContainerLayout, ContainerContent, UserCreate, UserLogin},
     data()
     {
         return {
@@ -22,8 +22,8 @@ export default
     template: `
         <Navbar></Navbar>
         <ContainerLayout>
-            <ContainerContent><AccountCreate></AccountCreate></ContainerContent>
-            <ContainerContent><AccountLogin></AccountLogin></ContainerContent>
+            <ContainerContent><UserCreate></UserCreate></ContainerContent>
+            <ContainerContent><UserLogin></UserLogin></ContainerContent>
         </ContainerLayout>
   `,
 };
