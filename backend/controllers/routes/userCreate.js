@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import gravatar from "gravatar";
 import jsonwebtoken from "jsonwebtoken";
-import {check, validationResult} from "express-validator";
+import validator from 'validator';
+
 import bcryptjs from "bcryptjs";
 
 import {User} from "../../models/User.js";
@@ -12,24 +13,32 @@ import {User} from "../../models/User.js";
 
 export default async function (request, response)
 {
-    let {name, email, password} = request.body;
+    let name = request.body.name;
+    let email = request.body.email;
+    let password = request.body.password;
 
 
-    check("name", "Name is required").not().isEmpty();
-    check("email", "Email is required").isEmail();
-    check("password", "Password must be 6 or more character").isLength({min: 6});
+
+    // Validate input
+    if (validator.isEmpty(name))
+    {
+        return response.status(400).json({error: "Name is required"});
+    }
+    else if (!validator.isEmail(email))
+    {
+        return response.status(400).json({error: "Email is required"});
+    }
+    else if (!validator.isLength(password, {min: 6, max: 50}))
+    {
+        return response.status(400).json({error: "Password must be 6 to 50 characters"});
+    }
+
+
+
 
 
     try
     {
-        //validate request inputs
-        let errors = validationResult(request);
-        if (!errors.isEmpty())
-        {
-            //if checkHandlers result in a not empty "errors", return said errors
-            return response.status(400).json({errors: errors.array()});
-        }
-
 
         //Check if user is already in database
         let existingUser = await User.findOne({email: email});
@@ -69,7 +78,8 @@ export default async function (request, response)
             // response.status(200).send("Successful User Registration");
         } // end of if else
 
-    } catch (e)
+    }
+    catch (e)
     {
         console.error(e.message);
         response.status(500).send("Server error");
