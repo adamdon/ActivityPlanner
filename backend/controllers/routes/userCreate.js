@@ -4,7 +4,7 @@ import jsonwebtoken from "jsonwebtoken";
 import {check, validationResult} from "express-validator";
 import bcryptjs from "bcryptjs";
 
-import {User} from "../model/User.js";
+import {User} from "../../models/User.js";
 
 
 
