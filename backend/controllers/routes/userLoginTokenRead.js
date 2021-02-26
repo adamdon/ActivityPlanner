@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import jsonwebtoken from "jsonwebtoken";
-import {check, validationResult} from "express-validator";
+import validator from 'validator';
 import bcryptjs from "bcryptjs";
 import {User} from "../../models/User.js";
 
@@ -9,20 +9,23 @@ import {User} from "../../models/User.js";
 
 export default async function (request, response)
 {
-    let {email, password} = request.body;
+    let email = request.body.email;
+    let password = request.body.password;
 
-    check("email", "Registered Email is required for login").isEmail();
-    check("password", "Password is required").exists();
+
+    // Validate input
+
+    if (!validator.isEmail(email))
+    {
+        return response.status(400).json({errors: [{msg: "Email is required"}] });
+    }
+    else if (validator.isEmpty(password))
+    {
+        return response.status(400).json({errors: [{msg: "password is required"}]});
+    }
 
     try
     {
-        //validate request inputs
-        let errors = validationResult(request);
-        if (!errors.isEmpty())
-        {
-            //if checkHandlers result in a not empty "errors", return said errors
-            return response.status(400).json({errors: errors.array()});
-        }
 
         //Check if user is in database
         let existingUser = await User.findOne({email: email});

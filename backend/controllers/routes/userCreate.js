@@ -22,15 +22,15 @@ export default async function (request, response)
     // Validate input
     if (validator.isEmpty(name))
     {
-        return response.status(400).json({error: "Name is required"});
+        return response.status(400).json({errors: [{msg: "Name is required"}] });
     }
     else if (!validator.isEmail(email))
     {
-        return response.status(400).json({error: "Email is required"});
+        return response.status(400).json({errors: [{msg: "Email is required"}] });
     }
     else if (!validator.isLength(password, {min: 6, max: 50}))
     {
-        return response.status(400).json({error: "Password must be 6 to 50 characters"});
+        return response.status(400).json({errors: [{msg: "Password must be 6 to 50 characters"}] });
     }
 
 
