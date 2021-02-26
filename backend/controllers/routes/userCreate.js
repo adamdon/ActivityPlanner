@@ -13,32 +13,28 @@ import {User} from "../../models/User.js";
 
 export default async function (request, response)
 {
-    let name = request.body.name;
-    let email = request.body.email;
-    let password = request.body.password;
-
-
-
-    // Validate input
-    if (validator.isEmpty(name))
+  try
     {
-        return response.status(400).json({errors: [{msg: "Name is required"}] });
-    }
-    else if (!validator.isEmail(email))
-    {
-        return response.status(400).json({errors: [{msg: "Email is required"}] });
-    }
-    else if (!validator.isLength(password, {min: 6, max: 50}))
-    {
-        return response.status(400).json({errors: [{msg: "Password must be 6 to 50 characters"}] });
-    }
+        let name = request.body.name;
+        let email = request.body.email;
+        let password = request.body.password;
 
 
 
+        // Validate input
+        if (validator.isEmpty(name))
+        {
+            return response.status(400).json({errors: [{msg: "Name is required"}] });
+        }
+        else if (!validator.isEmail(email))
+        {
+            return response.status(400).json({errors: [{msg: "Email is required"}] });
+        }
+        else if (!validator.isLength(password, {min: 6, max: 50}))
+        {
+            return response.status(400).json({errors: [{msg: "Password must be 6 to 50 characters"}] });
+        }
 
-
-    try
-    {
 
         //Check if user is already in database
         let existingUser = await User.findOne({email: email});

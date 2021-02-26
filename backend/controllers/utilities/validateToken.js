@@ -6,7 +6,7 @@ export default function (token)
 
     if(!token)
     {
-        validateResult = "invalid, empty";
+        // validateResult = "invalid";
         return validateResult;
     }
 
@@ -23,7 +23,7 @@ export default function (token)
     catch (error)
     {
         //send error response if not valid
-        validateResult = ("invalid, " + error.message);
+        // validateResult = ("invalid, " + error.message);
         return validateResult;
     }
 }
