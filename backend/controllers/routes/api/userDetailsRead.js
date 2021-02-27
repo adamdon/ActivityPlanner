@@ -1,5 +1,5 @@
-import {User} from "../../models/User.js";
-import validateToken from "../utilities/validateToken.js";
+import {User} from "../../../models/User.js";
+import validateToken from "../../utilities/validateToken.js";
 
 
 

@@ -5,7 +5,7 @@ import validator from 'validator';
 
 import bcryptjs from "bcryptjs";
 
-import {User} from "../../models/User.js";
+import {User} from "../../../models/User.js";
 
 
 
