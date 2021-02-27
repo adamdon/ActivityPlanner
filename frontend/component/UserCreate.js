@@ -15,6 +15,17 @@ export default {
         }
     },
 
+    // data:
+    // {
+    //     nameInput: "",
+    //     emailInput: "",
+    //     password1Input: "",
+    //     password2Input: "",
+    //     errorAlert: "",
+    //     successAlert: "",
+    //     formDisabled: false
+    // },
+
 
     methods: {
         async userCreateButtonOnClick(event)
