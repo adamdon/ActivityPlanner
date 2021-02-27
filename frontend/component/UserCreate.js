@@ -9,7 +9,9 @@ export default {
             emailInput: "",
             password1Input: "",
             password2Input: "",
-            errorAlert: ""
+            errorAlert: "",
+            successAlert: "",
+            formDisabled: false
         }
     },
 
@@ -17,35 +19,44 @@ export default {
     methods: {
         async userCreateButtonOnClick(event)
         {
-            console.log("nameInput: " + this.nameInput);
-            console.log("emailInput: " + this.emailInput);
-            console.log("password1Input: " + this.password1Input);
-            console.log("password2Input: " + this.password2Input);
-            this.errorAlert = "WOW aint gonna work mate";
+            this.formDisabled = true;
 
+            //client-side validation
+            if(this.password1Input !== this.password2Input)
+            {
+                this.errorAlert = "Passwords do not match"
+            }
+            else
+            {
+                let requestBody = {name: this.nameInput, email: this.emailInput, password: this.password1Input,};
+                let requestUrl = "/api/userCreate";
+                let requestHeaders = {"Content-Type": "application/json"};
 
-            let requestBody =
+                const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});
+                const data = await response.json();
+
+                if(data.errors)
                 {
-                    name: this.nameInput,
-                    email: this.emailInput,
-                    password: this.password1Input,
-                };
-
-            let requestUrl = "/api/userCreate";
-
-            let requestHeaders =
+                    this.successAlert = "";
+                    this.errorAlert = data.errors[0].msg;
+                }
+                else if(data.token)
                 {
-                    "Content-Type": "application/json"
-                };
-
-
-
-            console.log(requestBody);
-
-            const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});
-            const data = await response.json();
-            console.log(data);
-
+                    console.log(data.token) //TODO save this token somewhere
+                    this.errorAlert = "";
+                    this.successAlert = (this.emailInput + " successfully registered")
+                    this.nameInput = "";
+                    this.emailInput = "";
+                    this.password1Input = "";
+                    this.password2Input = "";
+                }
+                else
+                {
+                    console.log("Unexpected response");
+                    console.log(data);
+                }
+            }
+            this.formDisabled = false;
         }
     },
 
@@ -56,7 +67,7 @@ export default {
       <div class="card-body">
 
         <form>
-          
+
           <div class="form-group input-group">
             <div class="input-group-prepend">
               <span class="input-group-text"> <i class="fa fa-user"></i> </span>
@@ -89,13 +100,17 @@ export default {
           </div> <!-- form-group// -->
 
 
-          <div  v-if="errorAlert" class="alert alert-danger" role="alert">
-            {{errorAlert}}
+          <div v-if="errorAlert" class="alert alert-danger" role="alert">
+            {{ errorAlert }}
           </div>
-          
+
+          <div v-if="successAlert" class="alert alert-success" role="alert">
+            {{ successAlert }}
+          </div>
+
 
           <div class="form-group">
-            <button v-on:click="userCreateButtonOnClick" type="button" onclick="" class="btn btn-dark btn-block"> Create User</button>
+            <button v-on:click="userCreateButtonOnClick" :disabled="this.formDisabled" type="button" onclick="" class="btn btn-dark btn-block"> Create User</button>
           </div> <!-- form-group// -->
 
 
