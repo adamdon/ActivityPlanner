@@ -42,7 +42,8 @@ export default {
                 }
                 else if(data.token)
                 {
-                    console.log(data.token) //TODO save this token somewhere
+                    localStorage.setItem("token", data.token);
+
                     this.errorAlert = "";
                     this.successAlert = (this.emailInput + " successfully registered")
                     this.nameInput = "";
