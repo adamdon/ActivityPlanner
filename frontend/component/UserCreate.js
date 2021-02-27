@@ -23,7 +23,26 @@ export default {
             console.log("password2Input: " + this.password2Input);
             this.errorAlert = "WOW aint gonna work mate";
 
-            const response = await fetch("/api/userCreate")
+
+            let requestBody =
+                {
+                    name: this.nameInput,
+                    email: this.emailInput,
+                    password: this.password1Input,
+                };
+
+            let requestUrl = "/api/userCreate";
+
+            let requestHeaders =
+                {
+                    "Content-Type": "application/json"
+                };
+
+
+
+            console.log(requestBody);
+
+            const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});
             const data = await response.json();
             console.log(data);
 

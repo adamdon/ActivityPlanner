@@ -8,7 +8,14 @@ export default async function (request, response)
 {
     try
     {
-        let validateResult = validateToken(request.body.token);
+        let requestToken = request.body.token;
+
+        if(typeof requestToken == "undefined")
+        {
+            return response.status(400).json({errors: [{msg: "Missing data"}] });
+        }
+
+        let validateResult = validateToken(requestToken);
         if(validateResult === "invalid")
         {
             return response.status(400).json({errors: [{msg: validateResult}] });

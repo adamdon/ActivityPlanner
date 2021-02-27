@@ -20,6 +20,11 @@ export default async function (request, response)
         let password = request.body.password;
 
 
+        if((typeof name == "undefined") || (typeof email == "undefined") || (typeof password == "undefined"))
+        {
+            return response.status(400).json({errors: [{msg: "Missing data"}] });
+        }
+
 
         // Validate input
         if (validator.isEmpty(name))
@@ -28,7 +33,7 @@ export default async function (request, response)
         }
         else if (!validator.isEmail(email))
         {
-            return response.status(400).json({errors: [{msg: "Email is required"}] });
+            return response.status(400).json({errors: [{msg: "Email not valid"}] });
         }
         else if (!validator.isLength(password, {min: 6, max: 50}))
         {

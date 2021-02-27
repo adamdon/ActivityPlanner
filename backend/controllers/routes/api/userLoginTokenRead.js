@@ -13,8 +13,13 @@ export default async function (request, response)
     let password = request.body.password;
 
 
-    // Validate input
+    if((typeof email == "undefined") || (typeof password == "undefined"))
+    {
+        return response.status(400).json({errors: [{msg: "Missing data"}] });
+    }
 
+
+    // Validate input
     if (!validator.isEmail(email))
     {
         return response.status(400).json({errors: [{msg: "Email is required"}] });
