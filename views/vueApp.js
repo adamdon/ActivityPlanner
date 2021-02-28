@@ -15,7 +15,7 @@ const routes =
 
 
 
-const router = VueRouter.createRouter({history: VueRouter.createWebHistory(), routes: routes, });
+const router = window.VueRouter.createRouter({history: VueRouter.createWebHistory(), routes: routes, });
 
 
 
@@ -30,9 +30,7 @@ const rootComponent =
 };
 
 
-
-
-
 const app = Vue.createApp({render: () => Vue.h(rootComponent)});
 app.use(router)
+app.config.globalProperties.emitter = window.mitt();
 app.mount("#vueApp");

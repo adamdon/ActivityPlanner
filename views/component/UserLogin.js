@@ -1,6 +1,3 @@
-
-
-
 export default
 {
     name: "UserLogin",
@@ -44,8 +41,8 @@ export default
                 this.successAlert = (this.emailInput + " successfully logged in")
                 this.emailInput = "";
                 this.passwordInput = "";
+                this.emitter.emit("updateNav");
                 this.$router.push("/");
-
             }
             else
             {

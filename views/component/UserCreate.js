@@ -61,6 +61,7 @@ export default {
                     this.emailInput = "";
                     this.password1Input = "";
                     this.password2Input = "";
+                    this.emitter.emit("updateNav");
                     this.$router.push("/");
                 }
                 else

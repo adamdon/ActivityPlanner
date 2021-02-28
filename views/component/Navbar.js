@@ -1,7 +1,3 @@
-
-
-
-
 export default
 {
     name: "Navbar",
@@ -18,8 +14,8 @@ export default
 
     async mounted()
     {
-        await this.update();
-
+        await this.updateNav();
+        this.emitter.on("updateNav", () => this.updateNav());
     },
 
 
@@ -29,11 +25,11 @@ export default
         async logout(event)
         {
             window.localStorage.clear();
-            await this.update();
-            this.$router.push("/");
+            this.emitter.emit("updateNav");
+            this.$router.push("/user");
         },
 
-        async update(event)
+        async updateNav(event)
         {
             const token = localStorage.getItem("token")
 
