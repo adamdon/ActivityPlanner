@@ -51,7 +51,7 @@ export default
       
 <nav class="navbar navbar-dark bg-primary py-0">
     <a class="navbar-brand" href="#">
-        <img src="../image/logo.svg" width="30" height="30" class="d-inline-block align-top" alt="logo">
+        <img src="/image/logo.svg" width="30" height="30" class="d-inline-block align-top" alt="logo">
         ActivityPlanner
     </a>
     
@@ -69,7 +69,7 @@ export default
 
     <div v-else>
       <button class="btn btn-primary" href="" id="navbarDropdownMenuLink" role="button">
-        Login/Signup &nbsp <img src="../image/users.svg" width="34" height="34" class="rounded-circle " alt="icon">&nbsp
+        Login/Signup &nbsp <img src="/image/users.svg" width="34" height="34" class="rounded-circle " alt="icon">&nbsp
       </button>
     </div>
 
