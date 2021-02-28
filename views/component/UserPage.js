@@ -31,7 +31,7 @@ export default
     components: {Navbar, ContainerLayout, ContainerContent, ContainerContentRow, UserCreate, UserLogin},
 
     template: `
-    <Navbar></Navbar>
+<!--    <Navbar></Navbar>-->
     
     <ContainerLayout>
         <ContainerContentRow>

@@ -61,6 +61,7 @@ export default {
                     this.emailInput = "";
                     this.password1Input = "";
                     this.password2Input = "";
+                    this.$router.push("/");
                 }
                 else
                 {
@@ -108,7 +109,7 @@ export default {
             <div class="input-group-prepend">
               <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
             </div>
-            <input v-model="password2Input" class="form-control" placeholder="Repeat password" type="password">
+            <input v-model="password2Input" v-on:keyup.enter="userCreateButtonOnClick" class="form-control" placeholder="Repeat password" type="password">
           </div> <!-- form-group// -->
 
 

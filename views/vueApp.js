@@ -1,6 +1,7 @@
 import UserPage from './component/UserPage.js';
 import HomePage from "./component/HomePage.js";
 import NotFoundPage from "./component/NotFoundPage.js";
+import Navbar from "./component/Navbar.js";
 
 
 
@@ -21,7 +22,11 @@ const router = VueRouter.createRouter({history: VueRouter.createWebHistory(), ro
 const rootComponent =
 {
     name: "vueApp",
-    template: `<router-view></router-view>`,
+    components: {Navbar,},
+    template: `
+<Navbar></Navbar>
+<router-view></router-view>`
+    ,
 };
 
 

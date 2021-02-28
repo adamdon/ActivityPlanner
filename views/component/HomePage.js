@@ -29,7 +29,7 @@ export default
     components: {Navbar, ContainerLayout, ContainerContent, ContainerContentRow, HomeWelcome},
 
     template: `
-    <Navbar></Navbar>
+<!--    <Navbar></Navbar>-->
     
     <ContainerLayout>
         <ContainerContentRow>

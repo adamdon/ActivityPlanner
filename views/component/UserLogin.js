@@ -44,6 +44,8 @@ export default
                 this.successAlert = (this.emailInput + " successfully logged in")
                 this.emailInput = "";
                 this.passwordInput = "";
+                this.$router.push("/");
+
             }
             else
             {
@@ -82,7 +84,7 @@ export default
             <div class="input-group-prepend">
               <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
             </div>
-            <input v-model="passwordInput" class="form-control" placeholder="Create password" type="password">
+            <input v-model="passwordInput" v-on:keyup.enter="userCreateButtonOnClick" class="form-control" placeholder="Create password" type="password">
           </div> <!-- form-group// -->
 
 
