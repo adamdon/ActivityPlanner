@@ -1,23 +1,33 @@
 import UserPage from './component/UserPage.js';
 import HomePage from "./component/HomePage.js";
+import NotFoundPage from "./component/NotFoundPage.js";
 
 
 
 
+const routes =
+[
+    { path: '/', component: HomePage },
+    { path: '/user', component: UserPage },
+    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundPage },
+];
 
-export default
+
+
+const router = VueRouter.createRouter({history: VueRouter.createWebHistory(), routes: routes, });
+
+
+
+const rootComponent =
 {
     name: "vueApp",
-    data()
-    {
-        return {
-            count: 0,
-        };
-    },
-
-    components: {UserPage, HomePage},
-    template: `
-      <router-view />
-      
-  `,
+    template: `<router-view></router-view>`,
 };
+
+
+
+
+
+const app = Vue.createApp({render: () => Vue.h(rootComponent)});
+app.use(router)
+app.mount("#vueApp");
