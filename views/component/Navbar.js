@@ -24,7 +24,6 @@ export default
 
             const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});
             const data = await response.json();
-            console.log(data);
             if(data)
             {
                 this.nameFirst = data.name.split(' ')[0];
@@ -70,7 +69,7 @@ export default
 
     <div v-else>
       <button class="btn btn-primary" href="" id="navbarDropdownMenuLink" role="button">
-        Login/Signup &nbsp <img src="../image/users.svg" width="30" height="30" class="rounded-circle " alt="icon">&nbsp
+        Login/Signup &nbsp <img src="../image/users.svg" width="34" height="34" class="rounded-circle " alt="icon">&nbsp
       </button>
     </div>
 
