@@ -2,6 +2,9 @@ import UserPage from './component/UserPage.js';
 import HomePage from "./component/HomePage.js";
 
 
+
+
+
 export default
 {
     name: "vueApp",
@@ -14,7 +17,7 @@ export default
 
     components: {UserPage, HomePage},
     template: `
-      <HomePage></HomePage>
+      <router-view />
       
   `,
 };

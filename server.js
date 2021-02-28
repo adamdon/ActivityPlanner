@@ -23,10 +23,11 @@ await database.connect();
 let expressApp = express();
 
 expressApp.use(connectLivereload()); //monkey patches HTML with livereload.js for auto F5
+expressApp.use(history());
 expressApp.use(express.json());
-// expressApp.use(history);
 expressApp.use(express.static("views"));
 expressApp.use("/", router);
+
 
 
 //start server

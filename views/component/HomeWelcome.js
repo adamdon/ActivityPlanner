@@ -34,6 +34,8 @@ export default
         <div class="card-body">
           <p class="card-text">
             test
+            <router-link to="/user">user link</router-link>
+
           </p>
         </div>
     </div>

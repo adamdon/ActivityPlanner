@@ -50,4 +50,4 @@ router.all("/api/userLoginTokenRead", userLoginTokenRead);
 
 
 
-router.all("/*", (request, response) => response.send("<h1>404</h1>"));
+// router.all("/*", (request, response) => response.send("<h1>404</h1>"));
