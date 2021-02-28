@@ -1,3 +1,7 @@
+
+
+
+
 export default
 {
     name: "Navbar",
@@ -14,27 +18,7 @@ export default
 
     async mounted()
     {
-        const token = localStorage.getItem("token")
-
-        if(token)
-        {
-            let requestBody = {token: token,};
-            let requestUrl = "/api/userDetailsRead";
-            let requestHeaders = {"Content-Type": "application/json"};
-
-            const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});
-            const data = await response.json();
-            if(data)
-            {
-                this.nameFirst = data.name.split(' ')[0];
-                this.gravatarUrl = ("http:" + data.avatar);
-                this.loggedIn = "yes";
-            }
-        }
-        else
-        {
-            this.loggedIn = "no";
-        }
+        await this.update();
 
     },
 
@@ -42,9 +26,36 @@ export default
 
 
     methods: {
-        async method(event)
+        async logout(event)
         {
+            window.localStorage.clear();
+            await this.update();
+            this.$router.push("/");
+        },
 
+        async update(event)
+        {
+            const token = localStorage.getItem("token")
+
+            if(token)
+            {
+                let requestBody = {token: token,};
+                let requestUrl = "/api/userDetailsRead";
+                let requestHeaders = {"Content-Type": "application/json"};
+
+                const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});
+                const data = await response.json();
+                if(data)
+                {
+                    this.nameFirst = data.name.split(' ')[0];
+                    this.gravatarUrl = ("http:" + data.avatar);
+                    this.loggedIn = "yes";
+                }
+            }
+            else
+            {
+                this.loggedIn = "no";
+            }
         },
 
 
@@ -66,21 +77,24 @@ export default
       </a>
 
       <div class="dropdown-menu dropdown-menu-right animate slideIn" aria-labelledby="navbarDropdownMenuLink">
-        <a class="dropdown-item" href="#">Dashboard</a>
-        <a class="dropdown-item" href="#">Edit Profile</a>
-        <a class="dropdown-item" href="#">Log Out</a>
+        <a class="dropdown-item text-center" href="">Achievement Calendar</a>
+        <a class="dropdown-item text-center" href="">Schedule Creator</a>
+        <a v-on:click="logout" class="dropdown-item text-center" href="">Log Out</a>
       </div>
     </div>
 
     <div v-else-if="this.loggedIn === 'no'">
-      <button class="btn btn-primary" href="" id="navbarDropdownMenuLink" role="button">
-        Login/Signup &nbsp <img src="/image/users.svg" width="34" height="34" class="rounded-circle " alt="icon">&nbsp
-      </button>
+      <router-link to="/user">
+        <button class="btn btn-primary" href="" id="navbarDropdownMenuLink" role="button">
+          Login/Signup &nbsp <img src="/image/users.svg" width="34" height="34" class="rounded-circle " alt="icon">&nbsp
+        </button>
+      </router-link>
+
+
     </div>
 
     <div v-else-if="this.loggedIn === 'unknown'">
       <img src="/image/blank.svg" width="34" height="48" class="rounded-circle " alt="icon">&nbsp
-
     </div>
 
 
