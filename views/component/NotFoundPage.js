@@ -8,15 +8,6 @@ export default
 {
     name: "NotFoundPage",
 
-    data()
-    {
-        return {
-            formDisabled: false
-        }
-    },
-
-
-
 
     methods: {
         async method(event)
@@ -31,7 +22,6 @@ export default
 
 
     components: {Navbar, ContainerLayout, ContainerContent, ContainerContentRow},
-
     template: `
       <ContainerLayout>
       <ContainerContentRow>
@@ -52,7 +42,5 @@ export default
       </ContainerContentRow>
       </ContainerLayout>
       
-      
-
   `,
 };

@@ -60,16 +60,16 @@ export default
 
     template: `
       
-<nav class="navbar navbar-dark bg-primary py-0">
+<nav class="navbar navbar-dark bg-primary p-0">
     <router-link class="navbar-brand" to="/">
-      <img src="/image/logo.svg" width="30" height="30" class="d-inline-block align-top" alt="logo">
+      &nbsp<img src="/image/logo.svg" width="30" height="30" class="d-inline-block align-top" alt="logo">
       ActivityPlanner
     </router-link>
     
     
     <div v-if="this.loggedIn === 'yes'">
       <a class="nav-link dropdown-toggle btn btn-primary" href="" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        {{nameFirst}} &nbsp <img :src="gravatarUrl"  width="30" height="30" class="rounded-circle " alt="icon">&nbsp
+        {{nameFirst}} &nbsp <img :src="gravatarUrl"  width="30" height="30" class="rounded-circle " alt="icon">
       </a>
 
       <div class="dropdown-menu dropdown-menu-right animate slideIn" aria-labelledby="navbarDropdownMenuLink">
@@ -82,7 +82,7 @@ export default
     <div v-else-if="this.loggedIn === 'no'">
       <router-link to="/user">
         <button class="btn btn-primary" href="" id="navbarDropdownMenuLink" role="button">
-          Login/Signup &nbsp <img src="/image/users.svg" width="34" height="34" class="rounded-circle " alt="icon">&nbsp
+          Login/Signup &nbsp <img src="/image/users.svg" width="34" height="34" class="rounded-circle " alt="icon">
         </button>
       </router-link>
 
