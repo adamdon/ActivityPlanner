@@ -9,17 +9,39 @@ export default
         }
     },
 
-
-
-
     methods: {
-        async method(event)
+        async updateScheduleTemplateList(event)
         {
+            const token = localStorage.getItem("token")
+
+            if(token)
+            {
+                // let requestBody = {token: token,};
+                // let requestUrl = "/api/userDetailsRead";
+                // let requestHeaders = {"Content-Type": "application/json"};
+                //
+                // const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});
+                // const data = await response.json();
+                // if(data)
+                // {
+                //     this.nameFirst = data.name.split(' ')[0];
+                //     this.gravatarUrl = ("http:" + data.avatar);
+                //     this.loggedIn = "yes";
+                // }
+            }
+            else
+            {
+                this.$router.push("/user");
+            }
 
 
         },
+    },
 
 
+    async mounted()
+    {
+        await this.updateScheduleTemplateList();
     },
 
 
