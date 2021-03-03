@@ -18,19 +18,14 @@ const ScheduleSchema = new mongoose.Schema
             ref: 'user'
         },
 
-    date:
-        {
-            type: Date,
-            default: Date.now(),
-        },
-
 
     goals:
         [
             {
-                user:
+                goal:
                     {
-                        type: mongoose.Schema.Types.ObjectId
+                        type: mongoose.Schema.Types.ObjectId,
+                        ref: 'goal'
                     },
             }
         ],

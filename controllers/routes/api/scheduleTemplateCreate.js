@@ -1,4 +1,8 @@
-import {User} from "../../../models/User";
+import validator from 'validator';
+import {User} from "../../../models/User.js";
+import {Schedule} from "../../../models/Schedule.js";
+
+import validateToken from "../../utilities/validateToken.js";
 
 
 
@@ -7,70 +11,48 @@ export default async function (request, response)
 {
     try
     {
-        let name = request.body.name;
-        let email = request.body.email;
-        let password = request.body.password;
+        let title = request.body.title;
+        let token = request.body.token;
 
 
-        if((typeof name == "undefined") || (typeof email == "undefined") || (typeof password == "undefined"))
+
+        if((typeof title == "undefined") || (typeof token == "undefined")) //TODO try request.body.hasOwnProperty('token');
         {
             return response.status(400).json({errors: [{msg: "Missing data"}] });
         }
 
-
         // Validate input
-        if (validator.isEmpty(name))
+        if (validator.isEmpty(title))
         {
-            return response.status(400).json({errors: [{msg: "Name is required"}] });
-        }
-        else if (!validator.isEmail(email))
-        {
-            return response.status(400).json({errors: [{msg: "Email not valid"}] });
-        }
-        else if (!validator.isLength(password, {min: 6, max: 50}))
-        {
-            return response.status(400).json({errors: [{msg: "Password must be 6 to 50 characters"}] });
+            return response.status(400).json({errors: [{msg: "title is required"}] });
         }
 
 
-        //Check if user is already in database
-        let existingUser = await User.findOne({email: email});
-        if (existingUser)
+        let validateResult = validateToken(token);
+        if(validateResult === "invalid")
         {
-            //Respond with error that user already exists
-            let messageText = `Email: ${email} is already registered`;
-            return response.status(400).json({errors: [{msg: messageText}]});
-        } else
+            return response.status(400).json({errors: [{msg: validateResult}] });
+        }
+
+
+
+        let user = await User.findById(validateResult.user.id).select("-password");
+
+        //Check if schedule title for this user is already in database
+        let foundSchedule = await Schedule.findOne({title: title, user: user.id});
+        if (foundSchedule)
         {
-            //Get email's Gravatar
-            let avatar = gravatar.url(email, {s: "200", r: "pg", d: "mm"});
+            return response.status(400).json({errors: [{msg: "Title already used"}]});
+        }
 
 
-            //Encrypt and get passwordHashed
-            let passwordSalt = await bcryptjs.genSalt(10);
-            let passwordHashed = await bcryptjs.hash(password, passwordSalt);
 
 
-            //Create and save new user to the database
-            let newUser = new User({name: name, email: email, avatar: avatar, password: passwordHashed});
-            await newUser.save();
+        let newSchedule = new Schedule({title: title, user: user.id});
+        await newSchedule.save();
 
-            //Return jsonwebtoken
-            let jwtPayload = {user: {id: newUser.id}};
-            let jsonwebtokenSecret = process.env.JWT_SECRET;
-            let jwtOptions = {expiresIn: 360000};
-            jsonwebtoken.sign(jwtPayload, jsonwebtokenSecret, jwtOptions, (error, token) =>
-            {
-                if (error) throw error;
 
-                //send Successful message
-                response.json({token})
-            });
-
-            //send Successful message
-            // response.status(200).send("Successful User Registration");
-        } // end of if else
-
+        response.json(newSchedule);
     }
     catch (e)
     {

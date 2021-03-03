@@ -12,29 +12,26 @@ const GoalSchema = new mongoose.Schema
                 type: String
             },
 
-        user:
+        type:
             {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'user'
+                type: String
             },
 
-        date:
+        target:
             {
-                type: Date,
-                default: Date.now(),
+                type: Number
             },
 
+        achieved:
+            {
+                type: Number
+            },
 
-        goals:
-            [
-                {
-                    goal:
-                        {
-                            type: mongoose.Schema.Types.ObjectId,
-                            ref: 'goal'
-                        },
-                }
-            ],
+        complete:
+            {
+                type: Boolean
+            }
+
     }
 );
 
