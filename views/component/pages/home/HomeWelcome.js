@@ -33,9 +33,8 @@ export default
         <div class="card-header"><i class="fas fa-home"></i> Welcome</div>
         <div class="card-body">
           <p class="card-text">
-            test
-            <router-link to="/user">user link</router-link>
-
+            user <router-link to="/user">link</router-link>
+            schedule <router-link to="/schedule">link</router-link>
           </p>
         </div>
     </div>

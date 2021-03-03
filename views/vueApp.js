@@ -1,7 +1,8 @@
+import Navbar from "./component/Navbar.js";
 import UserPage from './component/pages/user/UserPage.js';
 import HomePage from "./component/pages/home/HomePage.js";
+import ScheduleTemplatePage from "./component/pages/schedule/ScheduleTemplatePage.js";
 import NotFoundPage from "./component/NotFoundPage.js";
-import Navbar from "./component/Navbar.js";
 
 
 
@@ -10,6 +11,7 @@ const routes =
 [
     { path: '/', component: HomePage },
     { path: '/user', component: UserPage },
+    { path: '/schedule', component: ScheduleTemplatePage },
     { path: '/:pathMatch(.*)*', name: 'NotFoundPage', component: NotFoundPage },
 ];
 
