@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 
 /**
- * Message schema, contains replies too
  * @constructor User
  */
 const UserSchema = new mongoose.Schema
