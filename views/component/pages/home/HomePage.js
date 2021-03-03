@@ -1,7 +1,7 @@
-import Navbar from './Navbar.js'
-import ContainerLayout from './ContainerLayout.js'
-import ContainerContent from './ContainerContent.js';
-import ContainerContentRow from './ContainerContentRow.js';
+import Navbar from '../../Navbar.js'
+import ContainerLayout from '../../containers/ContainerLayout.js'
+import ContainerContent from '../../containers/ContainerContent.js';
+import ContainerContentRow from '../../containers/ContainerContentRow.js';
 
 import HomeWelcome from "./HomeWelcome.js";
 

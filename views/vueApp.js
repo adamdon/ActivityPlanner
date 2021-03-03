@@ -1,5 +1,5 @@
-import UserPage from './component/UserPage.js';
-import HomePage from "./component/HomePage.js";
+import UserPage from './component/pages/user/UserPage.js';
+import HomePage from "./component/pages/home/HomePage.js";
 import NotFoundPage from "./component/NotFoundPage.js";
 import Navbar from "./component/Navbar.js";
 
@@ -10,7 +10,7 @@ const routes =
 [
     { path: '/', component: HomePage },
     { path: '/user', component: UserPage },
-    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundPage },
+    { path: '/:pathMatch(.*)*', name: 'NotFoundPage', component: NotFoundPage },
 ];
 
 
@@ -24,9 +24,9 @@ const rootComponent =
     name: "vueApp",
     components: {Navbar,},
     template: `
-<Navbar></Navbar>
-<router-view></router-view>`
-    ,
+    <Navbar></Navbar>
+    <router-view></router-view>
+    `,
 };
 
 
