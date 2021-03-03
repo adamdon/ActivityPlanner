@@ -168,3 +168,8 @@ a.text-primary:hover, a.text-primary:focus
 {
     color: #305061 !important;
 }
+
+.bg-secondary
+{
+    background-color: #182931 !important;
+}
