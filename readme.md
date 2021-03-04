@@ -5,18 +5,19 @@ A web application that lets you define your own training schedule for each week 
 
 ## Installation
 
-With node.js and npm installed run the following command:
+With node.js and npm installed run the following command from project root:
 
 ```bash
-cd backend && npm run server
+npm run server
 ```
 
 ## Configuration
 
-Place ".env" file into the "backend" directory with the following variables:
+Place ".env" file into the project root directory with the following variables:
 
 ```bash
 MONGO_URI=**************************
+JWT_SECRET=*************************
 ```
 
 

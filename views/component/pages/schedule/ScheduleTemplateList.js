@@ -133,6 +133,7 @@ export default {
       <div class="card-body">
 
 
+        <!----------- start of new schedule input box ---------------->
 
 
         <div class="form-group input-group">
@@ -146,17 +147,23 @@ export default {
 
         </div> <!-- form-group// -->
 
+                
+        <!----------- end of new schedule input box ---------------->
 
-
-
+        
+        
+        
+        
+        
         <div class="divider my-4 bg-dark"></div>
 
-
-
-        <!--        end           -->
-
-
-
+        
+        
+        
+        
+        
+        
+        <!----------- start of schedule list scroll view  ---------------->
 
         <div data-simplebar data-simplebar-auto-hide="false" class="overflow-auto" style="max-height: 297px;">
 
@@ -176,13 +183,25 @@ export default {
         </div> <!-- scrollbar end -->
 
 
+        <!----------- end of schedule list scroll view  ---------------->
 
 
 
 
+        
+        
 
 
         <div class="divider my-4 bg-dark"></div>
+
+
+
+
+
+
+
+
+        <!----------- start of edit schedule box  ---------------->
 
 
 
@@ -196,15 +215,17 @@ export default {
         </div>
 
 
-        
-        
-        
-        
+
+        <!----------- end of edit schedule box  ---------------->
+
+
+
         <div class="divider my-4 bg-dark"></div>
 
-        
-        
-        
+
+
+        <!----------- start of output dialog boxes  ---------------->
+
 
         <div v-if="errorAlert" class="alert alert-danger" role="alert">
           {{ errorAlert }}
@@ -213,6 +234,9 @@ export default {
         <div v-if="successAlert" class="alert alert-success" role="alert">
           {{ successAlert }}
         </div>
+
+        <!----------- end of output dialog boxes  ---------------->
+
 
 
       </div>
