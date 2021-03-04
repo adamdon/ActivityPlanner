@@ -173,3 +173,14 @@ a.text-primary:hover, a.text-primary:focus
 {
     background-color: #182931 !important;
 }
+
+.secondary
+{
+    background-color: #182931 !important;
+}
+
+.badge-secondary
+{
+    background-color: #182931 !important;
+}
+
