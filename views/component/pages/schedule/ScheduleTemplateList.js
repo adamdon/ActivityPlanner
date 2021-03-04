@@ -6,8 +6,9 @@ export default {
         return {
             schedules: [],
             selectedSchedule: null,
+            selectedTitle: "",
             newScheduleTitle: "",
-            newInputDisabled: false,
+            editInputDisabled: true,
             listDisabled: false,
             errorAlert: "",
             successAlert: "",
@@ -47,20 +48,9 @@ export default {
         },
 
 
-
-        async onClickSelectedSchedule(schedule)
-        {
-            this.selectedSchedule = schedule;
-            this.newInputDisabled = true;
-            // this.selectedTitle = schedule.title;
-            console.log(schedule);
-
-        },
-
-
         async onClickNewSchedule()
         {
-            this.newInputDisabled = true;
+            // this.editInputDisabled = false;
             this.errorAlert = "";
 
             const token = localStorage.getItem("token");
@@ -79,7 +69,7 @@ export default {
                     // console.log(data);
                     this.selectedSchedule = data;
                     this.newScheduleTitle = "";
-                    this.newInputDisabled = false;
+                    // this.editInputDisabled = false;
                     await this.updateScheduleTemplateList();
                 }
                 else
@@ -87,7 +77,7 @@ export default {
                     console.log(data);
                     this.errorAlert = "Error: " + data.errors[0].msg;
                     this.newScheduleTitle = "";
-                    this.newInputDisabled = false;
+                    // this.editInputDisabled = false;
                     await this.updateScheduleTemplateList();
                 }
 
@@ -97,6 +87,31 @@ export default {
             }
 
         },
+
+        async onClickSelectedSchedule(schedule)
+        {
+            this.selectedSchedule = schedule;
+            this.editInputDisabled = false;
+            this.selectedTitle = schedule.title;
+            // console.log(schedule);
+
+        },
+
+
+        async onClickDelete()
+        {
+            console.log("onClickDelete");
+            await this.updateScheduleTemplateList();
+        },
+
+
+        async onClickUpdate()
+        {
+            console.log("onClickUpdate");
+            await this.updateScheduleTemplateList();
+        },
+
+
 
 
 
@@ -120,27 +135,17 @@ export default {
 
 
 
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fas fa-align-left"></i> </span>
+            <button v-on:click="onClickNewSchedule" onclick="" class="btn btn-dark shadow" type="button"><i class="far fa-save"></i> Create Schedule</button>
+          </div>
 
-        <form v-on:submit.prevent>
+          <input v-model="newScheduleTitle" v-on:keyup.enter="onClickNewSchedule"  onsubmit="return false" class="form-control shadow"
+                 placeholder="New Schedule Title" type="text">
 
+        </div> <!-- form-group// -->
 
-          <div class="form-group input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text"> <i class="fas fa-align-left"></i> </span>
-              <div class="input-group-append">
-
-                <button v-on:click="onClickNewSchedule" :disabled="this.newInputDisabled" onclick="" class="btn btn-dark btn-block shadow-lg" type="button">New Schedule</button>
-
-              </div>
-              
-            </div>
-
-            <input v-model="newScheduleTitle" v-on:keyup.enter="onClickNewSchedule" :disabled="this.newInputDisabled"  onsubmit="return false" class="form-control shadow" placeholder="New Schedule Title" type="text">
-
-          </div> <!-- form-group// -->
-
-
-        </form>
 
 
 
@@ -149,17 +154,10 @@ export default {
 
 
         <!--        end           -->
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
         <div data-simplebar data-simplebar-auto-hide="false" class="overflow-auto" style="max-height: 297px;">
 
           <ul class="list-group">
@@ -181,8 +179,32 @@ export default {
 
 
 
+
+
+
         <div class="divider my-4 bg-dark"></div>
 
+
+
+
+        <div class="input-group">
+          <input v-model="selectedTitle" v-on:keyup.enter="onClickUpdate" :disabled="this.editInputDisabled" type="text" class="form-control" placeholder="Selected Schedule">
+          <div class="input-group-append">
+            <button :disabled="this.editInputDisabled" v-on:click="onClickUpdate" class="btn btn-dark shadow" type="button"><i class="fas fa-cloud-upload-alt"></i> Update</button>
+            <button :disabled="this.editInputDisabled" v-on:click="onClickDelete" class="btn btn-dark shadow" type="button"><i class="fas fa-trash-alt"></i> Delete</button>
+          </div>
+        </div>
+
+
+        
+        
+        
+        
+        <div class="divider my-4 bg-dark"></div>
+
+        
+        
+        
 
         <div v-if="errorAlert" class="alert alert-danger" role="alert">
           {{ errorAlert }}
@@ -191,9 +213,6 @@ export default {
         <div v-if="successAlert" class="alert alert-success" role="alert">
           {{ successAlert }}
         </div>
-
-
-
 
 
       </div>
