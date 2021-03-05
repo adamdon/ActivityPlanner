@@ -13,18 +13,18 @@ export default async function (request, response)
     try
     {
         let token = request.body.token;
-        let scheduleId = request.body.scheduleId;
+        let schedule_id = request.body._id;
 
 
         //Check that data has been sent
-        if((typeof token == "undefined") || (typeof scheduleId == "undefined")) //TODO try request.body.hasOwnProperty('token');
+        if((typeof token == "undefined") || (typeof schedule_id == "undefined")) //TODO try request.body.hasOwnProperty('token');
         {
             return response.status(400).json({errors: [{msg: "Missing data"}] });
         }
 
 
         //Check that data is valid
-        if (validator.isEmpty(scheduleId))
+        if (validator.isEmpty(schedule_id))
         {
             return response.status(400).json({errors: [{msg: "Schedule id is required"}] });
         }
@@ -46,7 +46,7 @@ export default async function (request, response)
 
 
         //Check schedule is in database
-        let schedule = await Schedule.findOne({_id: scheduleId, user: user.id});
+        let schedule = await Schedule.findOne({_id: schedule_id, user: user.id});
         if (!schedule)
         {
             return response.status(400).json({errors: [{msg: "Schedule not found"}]});

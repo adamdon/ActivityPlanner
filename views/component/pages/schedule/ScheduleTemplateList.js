@@ -7,8 +7,8 @@ export default {
             schedules: [],
             selectedSchedule: null,
             selectedTitle: "",
-            newScheduleTitle: "",
             editInputDisabled: true,
+            newScheduleTitle: "",
             listDisabled: false,
             errorAlert: "",
             successAlert: "",
@@ -91,8 +91,8 @@ export default {
         async onClickSelectedSchedule(schedule)
         {
             this.selectedSchedule = schedule;
-            this.editInputDisabled = false;
             this.selectedTitle = schedule.title;
+            this.editInputDisabled = false;
             // console.log(schedule);
 
         },
@@ -101,7 +101,38 @@ export default {
         async onClickDelete()
         {
             console.log("onClickDelete");
-            await this.updateScheduleTemplateList();
+
+            const token = localStorage.getItem("token");
+            const _id = this.selectedSchedule._id;
+
+
+            if (token)
+            {
+                let requestBody = {token: token, _id: _id};
+                let requestUrl = "/api/scheduleTemplateDelete";
+                let requestHeaders = {"Content-Type": "application/json"};
+
+                const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});
+                const data = await response.json();
+                if ((data) && (!data.errors))
+                {
+                    console.log("onClickDelete " + JSON.stringify(data));
+                    this.selectedTitle = "";
+                    this.editInputDisabled = true;
+                    await this.updateScheduleTemplateList();
+                }
+                else
+                {
+                    console.log(data);
+                    this.errorAlert = "Error: " + data.errors[0].msg;
+                }
+
+            } else
+            {
+                this.$router.push("/user");
+            }
+
+
         },
 
 
