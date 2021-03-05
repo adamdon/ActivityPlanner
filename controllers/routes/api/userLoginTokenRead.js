@@ -71,7 +71,7 @@ export default async function (request, response)
     } catch (e)
     {
         console.error(e.message);
-        response.status(500).send("Server error");
+        return response.status(500).json({errors: [{msg: "Server error"}]});
     }
 
 }
