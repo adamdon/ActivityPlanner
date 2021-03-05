@@ -139,12 +139,39 @@ export default {
         async onClickUpdate()
         {
             console.log("onClickUpdate");
-            await this.updateScheduleTemplateList();
+
+            const token = localStorage.getItem("token");
+            const _id = this.selectedSchedule._id;
+            const title = this.selectedTitle;
+
+
+            if (token)
+            {
+                let requestBody = {token: token, _id: _id, title: title};
+                let requestUrl = "/api/scheduleTemplateUpdate";
+                let requestHeaders = {"Content-Type": "application/json"};
+
+                const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});
+                const data = await response.json();
+                if ((data) && (!data.errors))
+                {
+                    console.log("onClickUpdate " + JSON.stringify(data));
+                    this.selectedTitle = "";
+                    this.editInputDisabled = true;
+                    await this.updateScheduleTemplateList();
+                }
+                else
+                {
+                    console.log(data);
+                    this.errorAlert = "Error: " + data.errors[0].msg;
+                }
+
+            } else
+            {
+                this.$router.push("/user");
+            }
+
         },
-
-
-
-
 
 
     },
