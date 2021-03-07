@@ -16,34 +16,16 @@ export default {
     },
 
     methods: {
-        async updateScheduleGoalSetter(event)
+        async updateScheduleGoalSetterList()
         {
-            const token = localStorage.getItem("token");
+            console.log("updateScheduleGoalSetterList");
+        },
 
-
-            if (token)
-            {
-                let requestBody = {token: token,};
-                let requestUrl = "/api/scheduleTemplateUserAllRead";
-                let requestHeaders = {"Content-Type": "application/json"};
-
-                const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});
-                const data = await response.json();
-                if ((data) && (!data.errors))
-                {
-                    console.log(data);
-                    // this.schedules = data;
-                }
-                else
-                {
-                    console.log(data);
-                    this.errorAlert = "Error: " + data.errors[0].msg;
-                }
-            } else
-            {
-                this.$router.push("/user");
-            }
-
+        async setScheduleGoalSetter(selectedSchedule)
+        {
+            this.selectedSchedule = selectedSchedule;
+            this.selectedScheduleTitle = selectedSchedule.title;
+            await this.updateScheduleGoalSetterList();
         },
 
 
@@ -84,7 +66,8 @@ export default {
 
     async mounted()
     {
-        // await this.updateScheduleGoalSetter();
+        this.emitter.on("setScheduleGoalSetter", (schedule) => this.setScheduleGoalSetter(schedule));
+        await this.updateScheduleGoalSetterList();
     },
 
 
@@ -96,6 +79,20 @@ export default {
       <div class="card-body">
 
 
+
+        <!----------- Selected Schedule start  ---------------->
+
+        <div class="alert alert-primary" role="alert">
+          <span class="alert dark  p-2 font-weight-bold"><span class="badge badge-secondary"> Title: </span> {{ selectedScheduleTitle }} </span>
+        </div>
+        <!----------- Selected Schedule end  ---------------->
+
+
+
+
+
+
+        <div class="divider my-4 bg-dark"></div>
 
 
         <!----------- start of new goal  ---------------->

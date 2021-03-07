@@ -93,6 +93,7 @@ export default {
             this.selectedSchedule = schedule;
             this.selectedTitle = schedule.title;
             this.editInputDisabled = false;
+            this.emitter.emit("setScheduleGoalSetter", schedule)
             // console.log(schedule);
 
         },
@@ -226,15 +227,20 @@ export default {
         <div data-simplebar data-simplebar-auto-hide="false" class="overflow-auto" style="max-height: 297px;">
 
           <ul class="list-group">
+            <li v-for="schedule in schedules">
 
-            <button v-for="schedule in schedules" v-on:click="onClickSelectedSchedule(schedule)" :disabled="this.listDisabled" type="button"
-                    class="list-group-item list-group-item-action bg-primary text-white border-dark shadow-lg rounded">
+              <button  v-on:click="onClickSelectedSchedule(schedule)" :disabled="this.listDisabled" type="button"
+                       class="list-group-item list-group-item-action bg-primary text-white border-dark shadow-lg rounded">
 
-              <span class="alert primary  p-2"><span class="badge badge-secondary"> Created: </span> {{ new Date(schedule.date).toLocaleDateString("en-GB") }} </span>
-              <span class="alert primary  p-2"><span class="badge badge-secondary"> Goals: </span> {{ schedule.goals.length }} </span>
-              <span class="alert primary  p-2 font-weight-bold"><span class="badge badge-secondary"> Title: </span> {{ schedule.title }} </span>
+                <span class="alert primary  p-2"><span class="badge badge-secondary"> Created: </span> {{ new Date(schedule.date).toLocaleDateString("en-GB") }} </span>
+                <span class="alert primary  p-2"><span class="badge badge-secondary"> Goals: </span> {{ schedule.goals.length }} </span>
+                <span class="alert primary  p-2 font-weight-bold"><span class="badge badge-secondary"> Title: </span> {{ schedule.title }} </span>
 
-            </button>
+              </button>
+            
+            </li>
+
+
 
           </ul>
 
