@@ -55,7 +55,7 @@ export default {
             if (token)
             {
                 let requestBody = {token: token,};
-                let requestUrl = "/api/scheduleTemplateUserAllRead";
+                let requestUrl = "/api/goalCreate";
                 let requestHeaders = {"Content-Type": "application/json"};
 
                 const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});

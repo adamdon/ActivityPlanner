@@ -11,7 +11,7 @@ import calendarScheduleAssignedRead from "./routes/api/calendarScheduleAssignedR
 import calendarScheduleAssignedUpdate from "./routes/api/calendarScheduleAssignedUpdate.js"
 import scheduleTemplateCreate from "./routes/api/scheduleTemplateCreate.js"
 import scheduleTemplateDelete from "./routes/api/scheduleTemplateDelete.js"
-import scheduleTemplateGoalAllRead from "./routes/api/scheduleTemplateGoalAllRead.js"
+import goalScheduleAllRead from "./routes/api/goalScheduleAllRead.js"
 import goalCreate from "./routes/api/goalCreate.js"
 import scheduleTemplateGoalDelete from "./routes/api/scheduleTemplateGoalDelete.js"
 import scheduleTemplateRead from "./routes/api/scheduleTemplateRead.js"
@@ -38,7 +38,7 @@ router.all("/api/calendarScheduleAssignedRead", calendarScheduleAssignedRead);
 router.all("/api/calendarScheduleAssignedUpdate", calendarScheduleAssignedUpdate);
 router.all("/api/scheduleTemplateCreate", scheduleTemplateCreate);
 router.all("/api/scheduleTemplateDelete", scheduleTemplateDelete);
-router.all("/api/scheduleTemplateGoalAllRead", scheduleTemplateGoalAllRead);
+router.all("/api/goalScheduleAllRead", goalScheduleAllRead);
 router.all("/api/goalCreate", goalCreate);
 router.all("/api/scheduleTemplateGoalDelete", scheduleTemplateGoalDelete);
 router.all("/api/scheduleTemplateRead", scheduleTemplateRead);
