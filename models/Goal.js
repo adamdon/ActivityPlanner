@@ -7,10 +7,6 @@ import mongoose from "mongoose";
 const GoalSchema = new mongoose.Schema
 (
     {
-        title:
-            {
-                type: String
-            },
 
         type:
             {

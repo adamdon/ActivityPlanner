@@ -3,6 +3,8 @@ import ContainerContent from '../../containers/ContainerContent.js';
 import ContainerContentRow from '../../containers/ContainerContentRow.js';
 
 import ScheduleTemplateList from "./ScheduleTemplateList.js";
+import ScheduleGoalSetter from "./ScheduleGoalSetter.js";
+
 
 
 export default
@@ -25,11 +27,12 @@ export default
         }
     },
 
-    components: {ContainerLayout, ContainerContent, ContainerContentRow, ScheduleTemplateList},
+    components: {ContainerLayout, ContainerContent, ContainerContentRow, ScheduleTemplateList, ScheduleGoalSetter},
     template: `
     <ContainerLayout>
         <ContainerContentRow>
-            <ContainerContent desktop="col-xl-12"><ScheduleTemplateList></ScheduleTemplateList></ContainerContent>
+            <ContainerContent desktop="col-xl-6"><ScheduleTemplateList></ScheduleTemplateList></ContainerContent>
+            <ContainerContent desktop="col-xl-6"><ScheduleGoalSetter></ScheduleGoalSetter></ContainerContent>
         </ContainerContentRow>
     </ContainerLayout>
     `,
