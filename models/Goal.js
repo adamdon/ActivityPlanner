@@ -20,12 +20,14 @@ const GoalSchema = new mongoose.Schema
 
         achieved:
             {
-                type: Number
+                type: Number,
+                default: 0,
             },
 
         complete:
             {
-                type: Boolean
+                type: Boolean,
+                default: false,
             }
 
     }
