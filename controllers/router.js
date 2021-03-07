@@ -13,7 +13,7 @@ import scheduleTemplateCreate from "./routes/api/scheduleTemplateCreate.js"
 import scheduleTemplateDelete from "./routes/api/scheduleTemplateDelete.js"
 import goalScheduleAllRead from "./routes/api/goalScheduleAllRead.js"
 import goalCreate from "./routes/api/goalCreate.js"
-import scheduleTemplateGoalDelete from "./routes/api/scheduleTemplateGoalDelete.js"
+import goalDelete from "./routes/api/goalDelete.js"
 import scheduleTemplateRead from "./routes/api/scheduleTemplateRead.js"
 import scheduleTemplateUpdate from "./routes/api/scheduleTemplateUpdate.js"
 import scheduleTemplateUserAllRead from "./routes/api/scheduleTemplateUserAllRead.js"
@@ -40,7 +40,7 @@ router.all("/api/scheduleTemplateCreate", scheduleTemplateCreate);
 router.all("/api/scheduleTemplateDelete", scheduleTemplateDelete);
 router.all("/api/goalScheduleAllRead", goalScheduleAllRead);
 router.all("/api/goalCreate", goalCreate);
-router.all("/api/scheduleTemplateGoalDelete", scheduleTemplateGoalDelete);
+router.all("/api/goalDelete", goalDelete);
 router.all("/api/scheduleTemplateRead", scheduleTemplateRead);
 router.all("/api/scheduleTemplateUpdate", scheduleTemplateUpdate);
 router.all("/api/scheduleTemplateUserAllRead", scheduleTemplateUserAllRead);

@@ -94,13 +94,13 @@ export default async function (request, response)
         {
             let indexGoal = await Goal.findOne({_id: goal_id});
 
-            //Check and remove goal if is assigned to schedule but in not database anymore
-            if(!indexGoal)
-            {
-                console.log("CLEANUP removed goal from schedule that was assigned to schedule but in not database anymore");
-                schedule.goals = schedule.goals.filter(filterId => filterId._id === goal_id);
-                await schedule.save();
-            }
+            // //Check and remove goal if is assigned to schedule but in not database anymore
+            // if(!indexGoal)
+            // {
+            //     console.log("CLEANUP removed goal from schedule that was assigned to schedule but in not database anymore");
+            //     schedule.goals = schedule.goals.filter(filterId => filterId._id === goal_id);
+            //     await schedule.save();
+            // }
 
             //Check to see if the type was already used
             if((indexGoal) && (indexGoal.type === type))

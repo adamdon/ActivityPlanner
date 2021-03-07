@@ -15,11 +15,12 @@ export default async function (request, response)
     {
         let token = request.body.token;
         let schedule_id = request.body.schedule_id;
+        let goal_id = request.body.goal_id;
 
 
 
         //Check that data has been sent
-        if((typeof token == "undefined") || (typeof schedule_id == "undefined")) //TODO try request.body.hasOwnProperty('token');
+        if((typeof token == "undefined") || (typeof schedule_id == "undefined") || (typeof goal_id == "undefined")) //TODO try request.body.hasOwnProperty('token');
         {
             return response.status(400).json({errors: [{msg: "Missing data"}] });
         }
@@ -31,7 +32,11 @@ export default async function (request, response)
             return response.status(400).json({errors: [{msg: "Schedule id is required"}] });
         }
 
-
+        //Check that data is valid
+        if (validator.isEmpty(goal_id))
+        {
+            return response.status(400).json({errors: [{msg: "Goal id is required"}] });
+        }
 
 
         //Check that token is valid
@@ -57,35 +62,27 @@ export default async function (request, response)
             return response.status(400).json({errors: [{msg: "Schedule not found"}]});
         }
 
-        //Loop thought all current goals in schedule
-        let allGoalObjects = [];
-        for (const goal_id of schedule.goals)
+        const foundTextId = schedule.goals.find((goal) => (goal.id === goal_id));
+        if(!foundTextId)
         {
-            let indexGoal = await Goal.findOne({_id: goal_id});
+            return response.status(400).json({errors: [{msg: "Goal not found in schedule"}]});
+        }
 
-            // //Check and remove goal if is assigned to schedule but in not database anymore
-            // if(!indexGoal)
-            // {
-            //     console.log("CLEANUP removed goal from schedule that was assigned to schedule but in not database anymore");
-            //     schedule.goals = schedule.goals.filter(filterId => filterId._id === goal_id);
-            //     await schedule.save();
-            // }
-            // else
-            // {
-            //     allGoalObjects.push(indexGoal);
-            // }
-
-            if(indexGoal)
-            {
-                allGoalObjects.push(indexGoal);
-            }
-
-
+        let goalToDelete = await Goal.findOne({_id: goal_id});
+        if(!goalToDelete)
+        {
+            return response.status(400).json({errors: [{msg: "Goal not in database"}]});
         }
 
 
-        response.json(allGoalObjects);
+        schedule.goals = schedule.goals.filter(goal => !(goal.id === goal_id));
 
+
+        await schedule.save();
+        await goalToDelete.remove();
+
+
+        response.json(schedule);
     }
     catch (e)
     {
