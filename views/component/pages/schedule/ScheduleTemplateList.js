@@ -101,8 +101,6 @@ export default {
 
         async onClickDelete()
         {
-            console.log("onClickDelete");
-
             const token = localStorage.getItem("token");
             const _id = this.selectedSchedule._id;
 
@@ -117,10 +115,11 @@ export default {
                 const data = await response.json();
                 if ((data) && (!data.errors))
                 {
-                    console.log("onClickDelete " + JSON.stringify(data));
+                    // console.log("onClickDelete " + JSON.stringify(data));
                     this.selectedTitle = "";
                     this.editInputDisabled = true;
                     await this.updateScheduleTemplateList();
+                    this.emitter.emit("setScheduleGoalSetter", null)
                 }
                 else
                 {
@@ -139,7 +138,7 @@ export default {
 
         async onClickUpdate()
         {
-            console.log("onClickUpdate");
+            // console.log("onClickUpdate");
 
             const token = localStorage.getItem("token");
             const _id = this.selectedSchedule._id;
@@ -156,10 +155,12 @@ export default {
                 const data = await response.json();
                 if ((data) && (!data.errors))
                 {
-                    console.log("onClickUpdate " + JSON.stringify(data));
+                    // console.log("onClickUpdate " + JSON.stringify(data));
                     this.selectedTitle = "";
                     this.editInputDisabled = true;
+                    this.selectedSchedule = data;
                     await this.updateScheduleTemplateList();
+                    this.emitter.emit("setScheduleGoalSetter", this.selectedSchedule)
                 }
                 else
                 {
@@ -181,6 +182,7 @@ export default {
     async mounted()
     {
         await this.updateScheduleTemplateList();
+        this.emitter.on("updateScheduleTemplateList", () => this.updateScheduleTemplateList());
     },
 
 

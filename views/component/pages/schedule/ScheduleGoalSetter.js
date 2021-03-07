@@ -49,20 +49,33 @@ export default {
 
         async setScheduleGoalSetter(selectedSchedule)
         {
-            this.selectedSchedule = selectedSchedule;
-            this.selectedScheduleTitle = selectedSchedule.title;
-            await this.updateScheduleGoalSetterList();
+            if(selectedSchedule)
+            {
+                this.selectedSchedule = selectedSchedule;
+                this.selectedScheduleTitle = selectedSchedule.title;
+                await this.updateScheduleGoalSetterList();
+            }
+            else
+            {
+                this.selectedSchedule = null;
+                this.selectedScheduleTitle = "";
+                this.goals = [];
+            }
+
         },
 
 
         async createGoal()
         {
             const token = localStorage.getItem("token");
+            const schedule_id = this.selectedSchedule._id;
+            const type = this.newGoalType;
+            const target = this.newGoalNumber;
 
 
             if (token)
             {
-                let requestBody = {token: token,};
+                let requestBody = {token: token, schedule_id: schedule_id, type: type, target: target};
                 let requestUrl = "/api/goalCreate";
                 let requestHeaders = {"Content-Type": "application/json"};
 
@@ -70,12 +83,15 @@ export default {
                 const data = await response.json();
                 if ((data) && (!data.errors))
                 {
-                    console.log(data);
                     this.successAlert = "Goal created successfully"
+                    this.errorAlert = "";
+                    await this.updateScheduleGoalSetterList();
+                    this.emitter.emit("updateScheduleTemplateList");
                 }
                 else
                 {
-                    console.log(data);
+
+                    this.successAlert = "";
                     this.errorAlert = "Error: " + data.errors[0].msg;
                 }
             } else
