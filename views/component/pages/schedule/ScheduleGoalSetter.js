@@ -10,6 +10,8 @@ export default {
             newGoalType: "",
             newGoalNumber: null,
 
+            goals: [],
+
             errorAlert: "",
             successAlert: "",
         };
@@ -18,7 +20,31 @@ export default {
     methods: {
         async updateScheduleGoalSetterList()
         {
-            console.log("updateScheduleGoalSetterList");
+            const token = localStorage.getItem("token");
+            const schedule_id = this.selectedSchedule._id;
+
+            if (token)
+            {
+                let requestBody = {token: token, schedule_id: schedule_id};
+                let requestUrl = "/api/goalScheduleAllRead";
+                let requestHeaders = {"Content-Type": "application/json"};
+
+                const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});
+                const data = await response.json();
+                if ((data) && (!data.errors))
+                {
+                    this.goals = data;
+                }
+                else
+                {
+                    console.log(data);
+                    this.errorAlert = "Error: " + data.errors[0].msg;
+                }
+            }else
+            {
+                this.$router.push("/user");
+            }
+
         },
 
         async setScheduleGoalSetter(selectedSchedule)
@@ -45,7 +71,7 @@ export default {
                 if ((data) && (!data.errors))
                 {
                     console.log(data);
-                    // this.schedules = data;
+                    this.successAlert = "Goal created successfully"
                 }
                 else
                 {
@@ -67,7 +93,7 @@ export default {
     async mounted()
     {
         this.emitter.on("setScheduleGoalSetter", (schedule) => this.setScheduleGoalSetter(schedule));
-        await this.updateScheduleGoalSetterList();
+        // await this.updateScheduleGoalSetterList();
     },
 
 
@@ -122,6 +148,54 @@ export default {
         <!----------- end of new goal  ---------------->
 
 
+
+
+        <div class="divider my-4 bg-dark"></div>
+
+
+
+        
+        
+        
+        
+
+
+        <!----------- start of goal list scroll view  ---------------->
+
+        <div data-simplebar data-simplebar-auto-hide="false" class="overflow-auto" style="max-height: 297px;">
+
+          <ul class="list-group">
+            <li v-for="goal in goals">
+
+              <button  v-on:click=""  type="button"
+                       class="list-group-item list-group-item-action bg-primary text-white border-dark shadow-lg rounded">
+                <span class="alert primary  p-2"><span class="badge badge-secondary"> Target: </span> {{ goal.target }} </span>
+                <span class="alert primary  p-2"><span class="badge badge-secondary"> Type: </span> {{ goal.type }} </span>
+             
+              </button>
+
+            </li>
+
+
+
+          </ul>
+
+        </div> <!-- scrollbar end -->
+
+
+        <!----------- end of goal list scroll view  ---------------->
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
         <div class="divider my-4 bg-dark"></div>
 

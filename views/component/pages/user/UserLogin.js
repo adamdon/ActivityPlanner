@@ -59,6 +59,12 @@ export default
 
 
 
+    async mounted()
+    {
+        this.emitter.emit("updateNav");
+    },
+
+
 
     template: `
     <div class="card text-white bg-primary">
