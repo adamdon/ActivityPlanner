@@ -98,10 +98,44 @@ export default {
             {
                 this.$router.push("/user");
             }
-        }
+        },
 
 
 
+        async deleteGoal(goal)
+        {
+            const token = localStorage.getItem("token");
+            const schedule_id = this.selectedSchedule._id;
+            const goal_id = goal._id;
+
+            console.log(goal);
+
+            if (token)
+            {
+                let requestBody = {token: token, schedule_id: schedule_id, goal_id: goal_id};
+                let requestUrl = "/api/goalDelete";
+                let requestHeaders = {"Content-Type": "application/json"};
+
+                const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});
+                const data = await response.json();
+                if ((data) && (!data.errors))
+                {
+                    this.successAlert = "Goal deleted successfully"
+                    this.errorAlert = "";
+                    await this.updateScheduleGoalSetterList();
+                    this.emitter.emit("updateScheduleTemplateList");
+                }
+                else
+                {
+
+                    this.successAlert = "";
+                    this.errorAlert = "Error: " + data.errors[0].msg;
+                }
+            } else
+            {
+                this.$router.push("/user");
+            }
+        },
 
     },
 
@@ -185,6 +219,7 @@ export default {
 
               <button  v-on:click=""  type="button"
                        class="list-group-item list-group-item-action bg-primary text-white border-dark shadow-lg rounded">
+                <span class="alert primary  p-2"> <button v-on:click="deleteGoal(goal)" type="button" class="bg-dark text-white border-dark shadow-lg rounded"><i class="fas fa-trash-alt"></i></button> </span>
                 <span class="alert primary  p-2"><span class="badge badge-secondary"> Target: </span> {{ goal.target }} </span>
                 <span class="alert primary  p-2"><span class="badge badge-secondary"> Type: </span> {{ goal.type }} </span>
              
