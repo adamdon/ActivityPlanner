@@ -11,9 +11,10 @@ import CalendarAchievement from "./CalendarAchievement.js";
 
 export default
 {
+    name: "CalendarPage",
+
 
     components: {Navbar, ContainerLayout, ContainerContent, ContainerContentRow, CalendarAssignment, CalendarAchievement},
-
     template: `
     
     <ContainerLayout>

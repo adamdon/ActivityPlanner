@@ -11,7 +11,7 @@ export default {
     
             <p class="card-text">
                 Use the input boxes below to login or create an account. You can use  
-                <a href="https://en.gravatar.com/" class="text-decoration-none font-weight-bold text-white">gravatar.com</a>
+                <a href="https://en.gravatar.com/" target="_blank" class="text-decoration-none font-weight-bold text-white">gravatar.com</a>
                 to assign your own unique avatar for use on this site.
             </p>
             
