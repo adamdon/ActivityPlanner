@@ -18,23 +18,46 @@ export default {
     {
         async setupPicker()
         {
-            flatpickr("#datepicker", {});
+            console.log(window);
+            console.log(weekSelect);
 
-            // flatpickr = window.flatpickr;
-            // flatpickr("#datepicker", {});
-            // window.flatpickr("#datepicker",
-            //     {
-            //     "plugins": [new weekSelect({})],
-            //     "onChange": [function(){
-            //         // extract the week number
-            //         // note: "this" is bound to the flatpickr instance
-            //         const weekNumber = this.selectedDates[0]
-            //             ? this.config.getWeek(this.selectedDates[0])
-            //             : null;
-            //
-            //         console.log(weekNumber);
-            //     }]
-            // });
+            const config =
+                {
+                    // plugins: [new weekSelect()],
+                    altInput: true,
+                    altFormat: "\\Week W \\S\\e\\l\\e\\c\\t\\e\\d",
+                    dateFormat: "d-m-Y",
+                    locale: {"firstDayOfWeek": 1 },
+                    weekNumbers: true,
+
+                    disable: [
+                        function(date) {
+                            // return true to disable
+                            return (!(date.getDay() === 1));
+
+                        }
+                    ],
+
+
+                    onChange: function(selectedDates, dateStr, instance)
+                    {
+                        const weekNumber = this.config.getWeek(this.selectedDates[0]);
+
+
+                        this.selectedDate = selectedDates[0];
+                        console.log(weekNumber);
+                        console.log(selectedDates);
+                    },
+
+
+                };
+
+
+            const datepicker = document.getElementById("datepicker");
+            const fp = window.flatpickr(datepicker, config);  // flatpickr
+
+
+
         },
 
         async assignSchedule()
@@ -108,7 +131,7 @@ export default {
               </div>
               
 
-              <input v-model="selectedDate" type="text" id="datepicker" placeholder="Pick Week"  autocomplete="off" class="form-control shadow"/>
+              <input v-model="selectedDate" type="date" id="datepicker" placeholder="Pick Week"  autocomplete="off" class="form-control shadow"/>
               
 
             </div> <!-- form-group// -->
