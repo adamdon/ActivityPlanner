@@ -15,13 +15,13 @@ const CalendarSchema = new mongoose.Schema
             },
 
 
-        schedules:
+        assignments:
             [
                 {
-                    schedule:
+                    assignment:
                         {
                             type: mongoose.Schema.Types.ObjectId,
-                            ref: 'schedule'
+                            ref: 'assignment'
                         },
 
                     date:

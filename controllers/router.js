@@ -5,7 +5,7 @@ import calendarAchievementCreate from "./routes/api/calendarAchievementCreate.js
 import calendarAchievementDelete from "./routes/api/calendarAchievementDelete.js"
 import calendarAchievementRead from "./routes/api/calendarAchievementRead.js"
 import calendarScheduleAssignedAllRead from "./routes/api/calendarScheduleAssignedAllRead.js"
-import calendarScheduleAssignedCreate from "./routes/api/calendarScheduleAssignedCreate.js"
+import assignmentCreate from "./routes/api/assignmentCreate.js"
 import calendarScheduleAssignedDelete from "./routes/api/calendarScheduleAssignedDelete.js"
 import calendarScheduleAssignedRead from "./routes/api/calendarScheduleAssignedRead.js"
 import calendarScheduleAssignedUpdate from "./routes/api/calendarScheduleAssignedUpdate.js"
@@ -31,7 +31,7 @@ router.all("/api/calendarAchievementCreate", calendarAchievementCreate);
 router.all("/api/calendarAchievementDelete", calendarAchievementDelete);
 router.all("/api/calendarAchievementRead", calendarAchievementRead);
 router.all("/api/calendarScheduleAssignedAllRead", calendarScheduleAssignedAllRead);
-router.all("/api/calendarScheduleAssignedCreate", calendarScheduleAssignedCreate);
+router.all("/api/assignmentCreate", assignmentCreate);
 router.all("/api/calendarScheduleAssignedDelete", calendarScheduleAssignedDelete);
 router.all("/api/calendarScheduleAssignedRead", calendarScheduleAssignedRead);
 router.all("/api/calendarScheduleAssignedUpdate", calendarScheduleAssignedUpdate);
