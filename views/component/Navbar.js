@@ -73,11 +73,10 @@ export default
       </a>
 
       <div class="dropdown-menu dropdown-menu-right animate slideIn" aria-labelledby="navbarDropdownMenuLink">
-<!--        <a class="dropdown-item text-center" href="">Achievement Calendar</a>-->
+        <router-link to="/" class="dropdown-item text-center"> Home </router-link>
         <router-link to="/schedule" class="dropdown-item text-center"> Schedule Creator </router-link>
         <router-link to="/calendar" class="dropdown-item text-center"> Achievement Calendar </router-link>
 
-<!--        <a class="dropdown-item text-center" href=""> Schedule Creator</a>-->
         <a v-on:click="logout" class="dropdown-item text-center" href="">Log Out</a>
       </div>
     </div>
