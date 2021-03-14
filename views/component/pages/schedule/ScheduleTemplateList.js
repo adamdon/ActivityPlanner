@@ -24,7 +24,7 @@ export default {
             if (token)
             {
                 let requestBody = {token: token,};
-                let requestUrl = "/api/scheduleTemplateUserAllRead";
+                let requestUrl = "/api/scheduleUserAllRead";
                 let requestHeaders = {"Content-Type": "application/json"};
 
                 const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});
@@ -57,7 +57,7 @@ export default {
             if (token)
             {
                 let requestBody = {token: token, title: this.newScheduleTitle};
-                let requestUrl = "/api/scheduleTemplateCreate";
+                let requestUrl = "/api/scheduleCreate";
                 let requestHeaders = {"Content-Type": "application/json"};
 
                 const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});
@@ -108,7 +108,7 @@ export default {
             if (token)
             {
                 let requestBody = {token: token, _id: _id};
-                let requestUrl = "/api/scheduleTemplateDelete";
+                let requestUrl = "/api/scheduleDelete";
                 let requestHeaders = {"Content-Type": "application/json"};
 
                 const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});
@@ -148,7 +148,7 @@ export default {
             if (token)
             {
                 let requestBody = {token: token, _id: _id, title: title};
-                let requestUrl = "/api/scheduleTemplateUpdate";
+                let requestUrl = "/api/scheduleUpdate";
                 let requestHeaders = {"Content-Type": "application/json"};
 
                 const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});
