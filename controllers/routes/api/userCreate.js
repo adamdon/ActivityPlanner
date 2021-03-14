@@ -6,6 +6,8 @@ import validator from 'validator';
 import bcryptjs from "bcryptjs";
 
 import {User} from "../../../models/User.js";
+import {Calendar} from "../../../models/Calendar.js";
+
 
 
 
@@ -62,6 +64,10 @@ export default async function (request, response)
             //Create and save new user to the database
             let newUser = new User({name: name, email: email, avatar: avatar, password: passwordHashed});
             await newUser.save();
+
+            //Create and save new Calendar to the database
+            let newCalendar = new Calendar({user: newUser._id});
+            await newCalendar.save();
 
             //Return jsonwebtoken
             let jwtPayload = {user: {id: newUser.id}};
