@@ -9,7 +9,7 @@ export default {
             schedules: [],
             scheduleTitle: "",
             selectedSchedule: "",
-            myDate: null,
+            myDate: 0,
             errorAlert: "",
             successAlert: "",
         };
@@ -19,13 +19,62 @@ export default {
     {
         async setupPicker()
         {
+            let newDate;
+
+            function roundDate(timeStamp){
+                timeStamp += timeStamp % (24 * 60 * 60 * 1000);//add amount of time since midnight
+                timeStamp += new Date().getTimezoneOffset() * 60 * 1000;//add on the timezone offset
+                return new Date(timeStamp);
+            }
+
+            function convertDateToUTC(date) {
+                return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds()));
+            }
+
+            function setPickerDate(selectedDates, dateStr, instance)
+            {
+                const weekNumber = this.config.getWeek(this.selectedDates[0]);
+                newDate = new Date(this.selectedDates[0]).getTime();
+                let newUtcDateString = new Date(newDate).toISOString();
+                let newUtcDate = convertDateToUTC(new Date(newUtcDateString));
+
+
+                // var a = window.moment('2016-01-01');
+                // a.utc(true);
+                //
+                // console.log(window.moment);
+                // console.log(a);
+                // console.log(window.moment);
+
+                // console.log(newUtcDateString);
+                // console.log(newUtcDate);
+                // console.log(roundDate(newUtcDate));
+                // console.log(new Date(roundDate(newUtcDate)).toISOString());
+
+
+
+                // window.gobalDate = newDate;
+                // console.log(window.gobalDate);
+                // console.log(this.selectedDates[0]);
+                // console.log(new Date(window.gobalDate));
+                // console.log(convertDateToUTC(new Date(window.gobalDate)));
+                // console.log(window.gobalDate);
+
+
+
+                // this.myDate = newDate;
+                // console.log(newDate);
+                // console.log(typeof newDate);
+                // console.log(this.myDate);
+                // console.log(typeof this.myDate);
+            }
 
             const config =
                 {
                     // plugins: [new weekSelect()],
                     altInput: true,
                     altFormat: "\\Week W \\S\\e\\l\\e\\c\\t\\e\\d",
-                    dateFormat: "d-m-Y",
+                    dateFormat: "Z",
                     locale: {"firstDayOfWeek": 1 },
                     weekNumbers: true,
 
@@ -34,20 +83,12 @@ export default {
                             // return true to disable
                             return (!(date.getDay() === 1));
 
+
                         }
                     ],
 
 
-                    onChange: function(selectedDates, dateStr, instance)
-                    {
-                        const weekNumber = this.config.getWeek(this.selectedDates[0]);
-
-                        // console.log(new Date(this.selectedDates[0]));
-
-                        this.myDate = new Date(this.selectedDates[0]);
-                        console.log(this.myDate);
-                        console.log(typeof this.myDate);
-                    },
+                    onChange: setPickerDate,
 
 
                 };
@@ -63,45 +104,53 @@ export default {
         async assignSchedule()
         {
 
-            // const token = localStorage.getItem("token");
-            // const schedule_id = this.selectedSchedule._id;
-            // const date = this.myDate;
-            //
-            //
-            // this.errorAlert = "";
-            //
-            //
-            //
-            // // console.log(schedule_id);
-            // console.log(date);
-            // console.log(typeof date);
-            //
-            // if(this.selectedSchedule === "")
-            // {
-            //     this.errorAlert = "Schedule not selected";
-            //     return;
-            // }
-            //
-            //
-            // if(typeof date === "undefined")
-            // {
-            //     this.errorAlert = "date not selected1";
-            //     return;
-            // }
-            //
-            // if(this.myDate == null)
-            // {
-            //     console.log(this.myDate);
-            //     this.errorAlert = "date not selected2";
-            //     return;
-            // }
-            //
-            // if(date.getTime() === 0)
-            // {
-            //     this.errorAlert = "date not selected3";
-            //     return;
-            // }
-            //
+            const token = localStorage.getItem("token");
+            const schedule_id = this.selectedSchedule._id;
+            const date = window.gobalDate;
+
+
+            this.errorAlert = "";
+
+
+
+            // console.log(schedule_id);
+            console.log(date);
+            console.log(new Date(date).toISOString());
+
+            console.log(typeof date);
+
+            if(this.selectedSchedule === "")
+            {
+                this.errorAlert = "Schedule not selected";
+                return;
+            }
+
+
+            if(typeof date === "undefined")
+            {
+                this.errorAlert = "date not selected1";
+                return;
+            }
+
+            if(this.myDate == null)
+            {
+                console.log(this.myDate);
+                this.errorAlert = "date not selected2";
+                return;
+            }
+
+            if(date === 0)
+            {
+                this.errorAlert = "date not selected3";
+                return;
+            }
+
+            if(date === "")
+            {
+                this.errorAlert = "date not selected";
+                return;
+            }
+
             //
             //
             //
@@ -183,7 +232,7 @@ export default {
     {
         await this.updateSchedules();
         await this.setupPicker();
-
+        window.gobalDate = 0;
     },
 
 
