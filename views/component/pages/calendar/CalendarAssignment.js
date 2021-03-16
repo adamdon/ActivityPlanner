@@ -9,7 +9,7 @@ export default {
             schedules: [],
             scheduleTitle: "",
             selectedSchedule: "",
-            myDate: 0,
+            selectedDateString: "",
             errorAlert: "",
             successAlert: "",
         };
@@ -21,52 +21,23 @@ export default {
         {
             let newDate;
 
-            function roundDate(timeStamp){
-                timeStamp += timeStamp % (24 * 60 * 60 * 1000);//add amount of time since midnight
-                timeStamp += new Date().getTimezoneOffset() * 60 * 1000;//add on the timezone offset
-                return new Date(timeStamp);
-            }
-
-            function convertDateToUTC(date) {
-                return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds()));
-            }
 
             function setPickerDate(selectedDates, dateStr, instance)
             {
-                const weekNumber = this.config.getWeek(this.selectedDates[0]);
-                newDate = new Date(this.selectedDates[0]).getTime();
-                let newUtcDateString = new Date(newDate).toISOString();
-                let newUtcDate = convertDateToUTC(new Date(newUtcDateString));
+                let weekNumber = this.config.getWeek(this.selectedDates[0]);
+                let newDate = new Date(this.selectedDates[0]).getTime();
+                let momentDate = window.moment(newDate);
+                let momentUtcDate = momentDate.utc(true);
+                let momentUtcDateText = momentUtcDate.toISOString();
 
+                window.momentUtcDateText = momentUtcDateText;
 
-                // var a = window.moment('2016-01-01');
-                // a.utc(true);
-                //
-                // console.log(window.moment);
-                // console.log(a);
-                // console.log(window.moment);
-
-                // console.log(newUtcDateString);
-                // console.log(newUtcDate);
-                // console.log(roundDate(newUtcDate));
-                // console.log(new Date(roundDate(newUtcDate)).toISOString());
-
-
-
-                // window.gobalDate = newDate;
-                // console.log(window.gobalDate);
-                // console.log(this.selectedDates[0]);
-                // console.log(new Date(window.gobalDate));
-                // console.log(convertDateToUTC(new Date(window.gobalDate)));
-                // console.log(window.gobalDate);
-
-
-
-                // this.myDate = newDate;
                 // console.log(newDate);
-                // console.log(typeof newDate);
-                // console.log(this.myDate);
-                // console.log(typeof this.myDate);
+                // console.log(momentDate);
+                // console.log(momentUtcDate);
+                // console.log(momentUtcDateText);
+                // console.log(newDate);
+
             }
 
             const config =
@@ -103,21 +74,17 @@ export default {
 
         async assignSchedule()
         {
-
             const token = localStorage.getItem("token");
             const schedule_id = this.selectedSchedule._id;
-            const date = window.gobalDate;
+            const date = window.momentUtcDateText;
 
-
+            this.successAlert = "";
             this.errorAlert = "";
 
 
 
-            // console.log(schedule_id);
             console.log(date);
-            console.log(new Date(date).toISOString());
 
-            console.log(typeof date);
 
             if(this.selectedSchedule === "")
             {
@@ -125,62 +92,43 @@ export default {
                 return;
             }
 
-
             if(typeof date === "undefined")
-            {
-                this.errorAlert = "date not selected1";
-                return;
-            }
-
-            if(this.myDate == null)
-            {
-                console.log(this.myDate);
-                this.errorAlert = "date not selected2";
-                return;
-            }
-
-            if(date === 0)
-            {
-                this.errorAlert = "date not selected3";
-                return;
-            }
-
-            if(date === "")
             {
                 this.errorAlert = "date not selected";
                 return;
             }
 
-            //
-            //
-            //
-            //
-            //
-            //
-            //
-            // if (token)
-            // {
-            //     let requestBody = {token: token, schedule_id: schedule_id, date: date.toString()};
-            //     let requestUrl = "/api/assignmentCreate";
-            //     let requestHeaders = {"Content-Type": "application/json"};
-            //
-            //     const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});
-            //     const data = await response.json();
-            //     if ((data) && (!data.errors))
-            //     {
-            //         console.log("WORKING DSLKFHSDKLFHJ LSKDFK");
-            //         console.log(data);
-            //     }
-            //     else
-            //     {
-            //         console.log(data);
-            //         this.errorAlert = "Error: " + data.errors[0].msg;
-            //     }
-            // }
-            // else
-            // {
-            //     this.$router.push("/user");
-            // }
+            if(date === "")
+            {
+                this.errorAlert = "date not selected4";
+                return;
+            }
+
+
+            if (token)
+            {
+                let requestBody = {token: token, schedule_id: schedule_id, date: date.toString()};
+                let requestUrl = "/api/assignmentCreate";
+                let requestHeaders = {"Content-Type": "application/json"};
+
+                const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});
+                const data = await response.json();
+                if ((data) && (!data.errors))
+                {
+                    // console.log(data);
+                    this.successAlert = (this.selectedSchedule.title + " assigned to week starting " + date.substring(0, 10));
+
+                }
+                else
+                {
+                    // console.log(data);
+                    this.errorAlert = "Error: " + data.errors[0].msg;
+                }
+            }
+            else
+            {
+                this.$router.push("/user");
+            }
         },
 
         async updateSchedules()
