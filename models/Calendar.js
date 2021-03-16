@@ -24,10 +24,6 @@ const CalendarSchema = new mongoose.Schema
                             ref: 'assignment'
                         },
 
-                    date:
-                        {
-                            type: Date,
-                        },
                 }
             ],
 
@@ -38,12 +34,6 @@ const CalendarSchema = new mongoose.Schema
                         {
                             type: mongoose.Schema.Types.ObjectId,
                             ref: 'achievement'
-                        },
-
-                    date:
-                        {
-                            type: Date,
-                            default: Date.now,
                         },
                 }
             ],
