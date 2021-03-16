@@ -62,7 +62,7 @@ export default async function (request, response)
 
 
         //Check assignment is already in database
-        let assignments = await Assignment.find({ user: user.id});
+        let assignments = await Assignment.find({ user: user.id}).sort({date: -1});
         if (!assignments)
         {
             return response.status(400).json({errors: [{msg: "No assignments found"}]});
