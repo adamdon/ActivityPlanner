@@ -196,10 +196,35 @@ export default {
 
 
 
-        deleteAssignment()
+        async deleteAssignment(assignment)
         {
-            console.log("deleteAssignment");
-        },
+            const token = localStorage.getItem("token");
+            const assignment_id = assignment._id;
+
+
+            if (token)
+            {
+                let requestBody = {token: token, assignment_id: assignment_id};
+                let requestUrl = "/api/assignmentDelete";
+                let requestHeaders = {"Content-Type": "application/json"};
+
+                const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});
+                const data = await response.json();
+                if ((data) && (!data.errors))
+                {
+                    console.log(data);
+                    await this.updateAssignments();
+                    // this.assignments = data;
+                }
+                else
+                {
+                    console.log(data);
+                    this.errorAlert = "Error: " + data.errors[0].msg;
+                }
+            } else
+            {
+                this.$router.push("/user");
+            }        },
 
 
         onChangeSelector(event)
