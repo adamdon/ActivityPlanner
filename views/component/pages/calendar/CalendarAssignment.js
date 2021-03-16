@@ -9,7 +9,7 @@ export default {
             schedules: [],
             scheduleTitle: "",
             selectedSchedule: "",
-            selectedDateString: "",
+            assignments: [],
             errorAlert: "",
             successAlert: "",
         };
@@ -117,7 +117,7 @@ export default {
                 {
                     // console.log(data);
                     this.successAlert = (this.selectedSchedule.title + " assigned to week starting " + date.substring(0, 10));
-
+                    await this.updateAssignments();
                 }
                 else
                 {
@@ -162,25 +162,62 @@ export default {
 
         },
 
+
+
+
+        async updateAssignments()
+        {
+            const token = localStorage.getItem("token");
+
+
+            if (token)
+            {
+                let requestBody = {token: token,};
+                let requestUrl = "/api/assignmentAllRead";
+                let requestHeaders = {"Content-Type": "application/json"};
+
+                const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});
+                const data = await response.json();
+                if ((data) && (!data.errors))
+                {
+                    // console.log(data);
+                    this.assignments = data;
+                }
+                else
+                {
+                    console.log(data);
+                    this.errorAlert = "Error: " + data.errors[0].msg;
+                }
+            } else
+            {
+                this.$router.push("/user");
+            }
+        },
+
+
+
+        deleteAssignment()
+        {
+            console.log("deleteAssignment");
+        },
+
+
         onChangeSelector(event)
         {
             this.selectedSchedule = this.schedules.find(schedule => schedule.title === this.scheduleTitle);
-
-            // console.log(event.target.value);
-            // console.log(this.selectedSchedule)
-            // console.log(this.scheduleTitle)
-
         },
 
 
     },
 
 
+
+
     async mounted()
     {
+        await this.updateAssignments();
         await this.updateSchedules();
         await this.setupPicker();
-        window.gobalDate = 0;
     },
 
 
@@ -225,6 +262,64 @@ export default {
 
         <!----------- end of assign schedule ---------------->
 
+
+
+
+
+
+
+
+
+        <div class="divider my-4 bg-dark"></div>
+
+
+
+
+
+
+
+
+
+        <!----------- start of assignment  list scroll view  ---------------->
+
+        <div data-simplebar data-simplebar-auto-hide="false" class="overflow-auto" style="max-height: 297px;">
+
+          <ul class="list-group">
+            <li v-for="assignment in assignments">
+
+              <button  v-on:click=""  type="button"
+                       class="list-group-item list-group-item-action bg-primary text-white border-dark shadow-lg rounded">
+                <span class="alert primary  p-2"> <button v-on:click="deleteAssignment(assignment)" type="button" class="bg-dark text-white border-dark shadow-lg rounded"><i class="fas fa-trash-alt"></i></button> </span>
+                <span class="alert primary  p-2"><span class="badge badge-secondary"> Schedule: </span> {{ assignment.schedule.title }} </span>
+                <span class="alert primary  p-2"><span class="badge badge-secondary"> Date: </span> {{ assignment.date.substring(0, 10) }} </span>
+
+              </button>
+
+            </li>
+
+
+
+          </ul>
+
+        </div> <!-- scrollbar end -->
+
+
+        <!----------- end of assignment list scroll view  ---------------->
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
 
 
