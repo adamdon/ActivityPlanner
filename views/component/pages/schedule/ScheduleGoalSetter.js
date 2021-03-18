@@ -220,9 +220,8 @@ export default {
               <button  v-on:click=""  type="button"
                        class="list-group-item list-group-item-action bg-primary text-white border-dark shadow-lg rounded">
                 <span class="alert primary  p-2"> <button v-on:click="deleteGoal(goal)" type="button" class="bg-dark text-white border-dark shadow-lg rounded"><i class="fas fa-trash-alt"></i></button> </span>
-                <span class="alert primary  p-2"><span class="badge badge-secondary"> Target: </span> {{ goal.target }} </span>
+                <span class="alert primary  p-2"><span class="badge badge-secondary"> Target: </span> {{ goal.target.toLocaleString('en-US', {minimumIntegerDigits: 4, useGrouping: false} ) }} </span>
                 <span class="alert primary  p-2"><span class="badge badge-secondary"> Type: </span> {{ goal.type }} </span>
-             
               </button>
 
             </li>

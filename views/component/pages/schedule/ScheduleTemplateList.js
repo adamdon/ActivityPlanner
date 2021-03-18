@@ -235,7 +235,7 @@ export default {
                        class="list-group-item list-group-item-action bg-primary text-white border-dark shadow-lg rounded">
 
                 <span class="alert primary  p-2"><span class="badge badge-secondary"> Created: </span> {{ new Date(schedule.date).toLocaleDateString("en-GB") }} </span>
-                <span class="alert primary  p-2"><span class="badge badge-secondary"> Goals: </span> {{ schedule.goals.length }} </span>
+                <span class="alert primary  p-2"><span class="badge badge-secondary"> Goals: </span> {{ schedule.goals.length.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping: false} )}} </span>
                 <span class="alert primary  p-2 font-weight-bold"><span class="badge badge-secondary"> Title: </span> {{ schedule.title }} </span>
 
               </button>
