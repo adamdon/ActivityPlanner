@@ -26,14 +26,45 @@ export default {
                 console.log("deleteAchievement");
             },
 
+            async setupPicker()
+            {
 
-        },
+                const config =
+                    {
+                        // plugins: [new weekSelect()],
+                        altInput: true,
+                        altFormat: "d-m-Y",
+                        dateFormat: "Z",
+                        locale: {"firstDayOfWeek": 1},
+                        weekNumbers: true,
+                        defaultDate: [new Date()],
+                        // onChange: setPickerDate,
+                        onChange: function (selectedDates, dateStr, instance)
+                        {
+                            let newDate = new Date(this.selectedDates[0]).getTime();
+                            let momentDate = window.moment(newDate);
+                            let momentUtcDate = momentDate.utc(true);
+                            let achievementUtcDateText = momentUtcDate.toISOString();
+
+                            window.achievementUtcDateText = achievementUtcDateText;
+                        },
+                    };
+
+
+                const achievementDatepicker = document.getElementById("achievementDatepicker");
+                const fp = window.flatpickr(achievementDatepicker, config);  // flatpickr
+            }, //setupPicker end
+
+
+
+        },//Methods end
 
 
     async mounted()
     {
-
-
+        // await this.updateAssignments();
+        // await this.updateSchedules();
+        await this.setupPicker();
     },
 
 
@@ -63,7 +94,7 @@ export default {
             <div class="form-group input-group">
 
               <div class="input-group-prepend">
-                <button v-on:click="createAchievement" onclick="" class="btn btn-dark shadow" type="button"><i class="far fa-save"></i> Record Achievement</button>
+                <button v-on:click="createAchievement" onclick="" class="btn btn-dark shadow" type="button"><i class="far fa-save"></i> Set Achievement</button>
               </div>
 
               <div class="input-group-prepend">
@@ -77,10 +108,10 @@ export default {
                 </select>
               </div>
 
-              <input v-model="newAchievementNumber" v-on:keyup.enter="createGoal"  onsubmit="return false" class="form-control shadow"
+              <input v-model="newAchievementNumber" v-on:keyup.enter="createAchievement"  onsubmit="return false" class="form-control shadow"
                      placeholder="Amount" type="number">
 
-              <input type="date" id="AchievementDatepicker" placeholder="Date" autocomplete="off" class="form-control shadow"/>
+              <input type="date" id="achievementDatepicker" placeholder="Date" autocomplete="off" class="form-control shadow"/>
 
 
             </div> <!-- form-group// -->
@@ -162,4 +193,5 @@ export default {
           </div>
       </div>
    `,
+
 };
