@@ -1,13 +1,12 @@
 import express from "express";
 
-import calendarAchievementAllRead from "./routes/api/calendarAchievementAllRead.js"
+import achievementAllRead from "./routes/api/achievementAllRead.js"
 import achievementCreate from "./routes/api/achievementCreate.js"
-import calendarAchievementDelete from "./routes/api/calendarAchievementDelete.js"
-import calendarAchievementRead from "./routes/api/calendarAchievementRead.js"
+import achievementDelete from "./routes/api/achievementDelete.js"
+import calendarRead from "./routes/api/calendarRead.js"
 import assignmentAllRead from "./routes/api/assignmentAllRead.js"
 import assignmentCreate from "./routes/api/assignmentCreate.js"
 import assignmentDelete from "./routes/api/assignmentDelete.js"
-import calendarScheduleAssignedDelete from "./routes/api/calendarScheduleAssignedDelete.js"
 import scheduleCreate from "./routes/api/scheduleCreate.js"
 import scheduleDelete from "./routes/api/scheduleDelete.js"
 import goalScheduleAllRead from "./routes/api/goalScheduleAllRead.js"
@@ -25,14 +24,13 @@ import userLoginTokenRead from "./routes/api/userLoginTokenRead.js"
 export let router = express.Router();
 
 
-router.all("/api/calendarAchievementAllRead", calendarAchievementAllRead);
+router.all("/api/achievementAllRead", achievementAllRead);
 router.all("/api/achievementCreate", achievementCreate);
-router.all("/api/calendarAchievementDelete", calendarAchievementDelete);
-router.all("/api/calendarAchievementRead", calendarAchievementRead);
+router.all("/api/achievementDelete", achievementDelete);
+router.all("/api/calendarRead", calendarRead);
 router.all("/api/assignmentAllRead", assignmentAllRead);
 router.all("/api/assignmentCreate", assignmentCreate);
 router.all("/api/assignmentDelete", assignmentDelete);
-router.all("/api/calendarScheduleAssignedDelete", calendarScheduleAssignedDelete);
 router.all("/api/scheduleCreate", scheduleCreate);
 router.all("/api/scheduleDelete", scheduleDelete);
 router.all("/api/goalScheduleAllRead", goalScheduleAllRead);
