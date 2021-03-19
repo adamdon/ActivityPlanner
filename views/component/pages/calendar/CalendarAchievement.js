@@ -16,10 +16,42 @@ export default {
 
     methods:
         {
+
+            async updateAchievements()
+            {
+                const token = localStorage.getItem("token");
+
+                if (token)
+                {
+                    let requestBody = {token: token,};
+                    let requestUrl = "/api/achievementAllRead";
+                    let requestHeaders = {"Content-Type": "application/json"};
+
+                    const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});
+                    const data = await response.json();
+                    if ((data) && (!data.errors))
+                    {
+                        // console.log(data);
+                        this.achievements = data;
+                    }
+                    else
+                    {
+                        console.log(data);
+                        this.errorAlert = "Error: " + data.errors[0].msg;
+                    }
+                } else
+                {
+                    this.$router.push("/user");
+                }            },
+
+
             async createAchievement()
             {
                 console.log("createAchievement");
             },
+
+
+
 
             async deleteAchievement(achievement)
             {
@@ -62,8 +94,7 @@ export default {
 
     async mounted()
     {
-        // await this.updateAssignments();
-        // await this.updateSchedules();
+        await this.updateAchievements();
         await this.setupPicker();
     },
 
