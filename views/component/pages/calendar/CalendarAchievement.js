@@ -42,12 +42,77 @@ export default {
                 } else
                 {
                     this.$router.push("/user");
-                }            },
+                }
+            },
 
 
             async createAchievement()
             {
-                console.log("createAchievement");
+                const token = localStorage.getItem("token");
+                const achieved = this.newAchievementNumber;
+                const type = this.newAchievementType;
+                let date = window.achievementUtcDateText;
+
+                this.successAlert = "";
+                this.errorAlert = "";
+
+
+                if(typeof date === "undefined")
+                {
+                    let newDate = new Date();
+                    let newDateZeroTime = newDate.setHours(0,0,0,0);
+                    let momentDate = window.moment(newDateZeroTime);
+                    let momentUtcDate = momentDate.utc(true);
+                    let achievementUtcDateText = momentUtcDate.toISOString();
+
+                    window.achievementUtcDateText = achievementUtcDateText;
+                    date = window.achievementUtcDateText;
+                }
+
+                if(this.newAchievementNumber === "")
+                {
+                    this.errorAlert = "Achievement amount not entered";
+                    return;
+                }
+
+                if(this.newAchievementNumber === "")
+                {
+                    this.errorAlert = "Achievement amount not entered";
+                    return;
+                }
+
+
+                if(date === "")
+                {
+                    this.errorAlert = "date not selected";
+                    return;
+                }
+
+
+                if (token)
+                {
+                    let requestBody = {token: token, date: date.toString(), type: type, achieved: achieved};
+                    let requestUrl = "/api/achievementCreate";
+                    let requestHeaders = {"Content-Type": "application/json"};
+
+                    const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});
+                    const data = await response.json();
+                    if ((data) && (!data.errors))
+                    {
+                        // console.log(data);
+                        this.successAlert = (" Saved Achievement of " + type + " for " + achieved);
+                        await this.updateAchievements();
+                    }
+                    else
+                    {
+                        // console.log(data);
+                        this.errorAlert = "Error: " + data.errors[0].msg;
+                    }
+                }
+                else
+                {
+                    this.$router.push("/user");
+                }
             },
 
 
