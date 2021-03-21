@@ -51,7 +51,7 @@ export default async function (request, response)
 
 
         //Check calendar is in database
-        let calendar = await Calendar.findOne({user: user.id});
+        let calendar = await Calendar.findOne({user: user.id}).populate("assignments");
         if (!calendar)
         {
             return response.status(400).json({errors: [{msg: "calendar not found"}]});
@@ -61,36 +61,36 @@ export default async function (request, response)
 
 
 
-        //Check assignment is already in database
-        let assignments = await Assignment.find({ user: user.id}).sort({date: -1});
-        if (!assignments)
-        {
-            return response.status(400).json({errors: [{msg: "No assignments found"}]});
-        }
+        // //Check assignment is already in database
+        // let assignments = await Assignment.find({ user: user.id}).sort({date: -1});
+        // if (!assignments)
+        // {
+        //     return response.status(400).json({errors: [{msg: "No assignments found"}]});
+        // }
+        //
+        //
+        //
+        // for (let assignment of assignments)
+        // {
+        //     let assignmentScheduleId = assignment.schedule;
+        //     let assignmentScheduleObject = await Schedule.findOne({_id: assignmentScheduleId, user: user.id});
+        //
+        //     assignment.schedule = assignmentScheduleObject;
+        //
+        //
+        //     let scheduleGoalsIds = assignment.schedule.goals
+        //     for(let scheduleGoalId of scheduleGoalsIds)
+        //     {
+        //         let scheduleGoalObject = await Goal.findOne({_id: scheduleGoalId._id});
+        //
+        //         //this changes to goal from an _id to the goal object it's self.
+        //         assignment.schedule.goals[assignment.schedule.goals.indexOf(scheduleGoalId)] = scheduleGoalObject;
+        //     }
+        // }
 
 
 
-        for (let assignment of assignments)
-        {
-            let assignmentScheduleId = assignment.schedule;
-            let assignmentScheduleObject = await Schedule.findOne({_id: assignmentScheduleId, user: user.id});
-
-            assignment.schedule = assignmentScheduleObject;
-
-
-            let scheduleGoalsIds = assignment.schedule.goals
-            for(let scheduleGoalId of scheduleGoalsIds)
-            {
-                let scheduleGoalObject = await Goal.findOne({_id: scheduleGoalId._id});
-
-                //this changes to goal from an _id to the goal object it's self.
-                assignment.schedule.goals[assignment.schedule.goals.indexOf(scheduleGoalId)] = scheduleGoalObject;
-            }
-        }
-
-
-
-        response.json(assignments);
+        response.json(calendar.assignments);
 
 
 

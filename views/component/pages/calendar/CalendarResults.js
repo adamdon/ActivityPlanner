@@ -26,7 +26,7 @@ export default {
                     const data = await response.json();
                     if ((data) && (!data.errors))
                     {
-                        console.log(data);
+                        // console.log(data);
                         this.calendar = data;
                         // this.schedules = data;
                     } else
