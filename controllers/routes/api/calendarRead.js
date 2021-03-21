@@ -55,8 +55,9 @@ export default async function (request, response)
         //Check calendar is in database
         let calendar = await Calendar.findOne({user: user.id})
             .populate('achievements')
-            .populate("assignments")
+            .populate({path: "assignments", populate: {path: "schedule", populate: {path: "goals"}}})
             .populate('user', ['-password']);
+
         if (!calendar)
         {
             return response.status(400).json({errors: [{msg: "calendar not found"}]});
