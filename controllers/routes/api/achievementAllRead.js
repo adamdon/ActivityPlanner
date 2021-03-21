@@ -51,7 +51,7 @@ export default async function (request, response)
 
 
         //Check calendar is in database
-        let calendar = await Calendar.findOne({user: user.id});
+        let calendar = await Calendar.findOne({user: user.id}).populate("achievements");
         if (!calendar)
         {
             return response.status(400).json({errors: [{msg: "calendar not found"}]});
@@ -61,16 +61,16 @@ export default async function (request, response)
 
 
 
-        //Check assignment is already in database
-        let achievements = await Achievement.find({ user: user.id}).sort({date: -1});
-        if (!achievements)
-        {
-            return response.status(400).json({errors: [{msg: "No achievements found"}]});
-        }
+        // //Check assignment is already in database
+        // let achievements = await Achievement.find({ user: user.id}).sort({date: -1});
+        // if (!achievements)
+        // {
+        //     return response.status(400).json({errors: [{msg: "No achievements found"}]});
+        // }
 
 
 
-        response.json(achievements);
+        response.json(calendar.achievements);
 
 
 
