@@ -120,7 +120,32 @@ export default {
 
             async deleteAchievement(achievement)
             {
-                console.log("deleteAchievement");
+                const token = localStorage.getItem("token");
+                const achievement_id = achievement._id;
+
+
+                if (token)
+                {
+                    let requestBody = {token: token, achievement_id: achievement_id};
+                    let requestUrl = "/api/achievementDelete";
+                    let requestHeaders = {"Content-Type": "application/json"};
+
+                    const response = await fetch(requestUrl, {method: "POST", headers: requestHeaders, body: JSON.stringify(requestBody)});
+                    const data = await response.json();
+                    if ((data) && (!data.errors))
+                    {
+                        // console.log(data);
+                        await this.updateAchievements();
+                    }
+                    else
+                    {
+                        console.log(requestBody);
+                        this.errorAlert = "Error: " + data.errors[0].msg;
+                    }
+                } else
+                {
+                    this.$router.push("/user");
+                }
             },
 
             async setupPicker()
