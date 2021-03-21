@@ -62,10 +62,10 @@ export default async function (request, response)
             return response.status(400).json({errors: [{msg: "Schedule not found"}]});
         }
 
-        const foundTextId = schedule.goals.find((goal) => (goal.id === goal_id));
+        const foundTextId = schedule.goals.find((goal) => (String(goal) === goal_id));
         if(!foundTextId)
         {
-            return response.status(400).json({errors: [{msg: "Goal not found in schedule"}]});
+            return response.status(400).json({errors: [{msg: "Goal not found in schedule "}]});
         }
 
         let goalToDelete = await Goal.findOne({_id: goal_id});
@@ -75,7 +75,7 @@ export default async function (request, response)
         }
 
 
-        schedule.goals = schedule.goals.filter(goal => !(goal.id === goal_id));
+        schedule.goals = schedule.goals.filter(goal => !(String(goal) === goal_id));
 
 
         await schedule.save();
