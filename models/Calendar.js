@@ -18,23 +18,16 @@ const CalendarSchema = new mongoose.Schema
         assignments:
             [
                 {
-                    assignment:
-                        {
-                            type: mongoose.Schema.Types.ObjectId,
-                            ref: 'assignment'
-                        },
-
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'assignment'
                 }
             ],
 
         achievements:
             [
                 {
-                    achievement:
-                        {
-                            type: mongoose.Schema.Types.ObjectId,
-                            ref: 'achievement'
-                        },
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'achievement'
                 }
             ],
 

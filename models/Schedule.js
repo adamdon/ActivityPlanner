@@ -22,11 +22,8 @@ const ScheduleSchema = new mongoose.Schema
     goals:
         [
             {
-                goal:
-                    {
-                        type: mongoose.Schema.Types.ObjectId,
-                        ref: 'goal'
-                    },
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'goal'
             }
         ],
 
