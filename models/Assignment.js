@@ -19,6 +19,13 @@ const AssignmentSchema = new mongoose.Schema
                 ref: 'schedule'
             },
 
+        user:
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'user'
+            },
+
+
 
     }
 );

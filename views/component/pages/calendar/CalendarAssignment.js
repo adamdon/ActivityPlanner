@@ -180,7 +180,7 @@ export default {
                 const data = await response.json();
                 if ((data) && (!data.errors))
                 {
-                    console.log(data);
+                    // console.log(data);
                     this.assignments = data;
                 }
                 else
