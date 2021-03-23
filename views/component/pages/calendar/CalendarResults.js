@@ -6,9 +6,9 @@ export default {
         return {
             calendar: null,
             currentAssignmentDate: "None",
-            currentAssignmentScheduleTitle: "None",
-            currentAssignmentGoalNumber: "None",
-            currentAssignmentAchievementNumber: "None",
+            currentAssignmentScheduleTitle: "",
+            currentAssignmentGoalNumber: "",
+            currentAssignmentAchievementNumber: "",
 
         };
     },
@@ -20,9 +20,9 @@ export default {
             {
                 this.calendar = null;
                 this.currentAssignmentDate = "None";
-                this.currentAssignmentScheduleTitle = "None";
-                this.currentAssignmentGoalNumber = "None";
-                this.currentAssignmentAchievementNumber = "None";
+                this.currentAssignmentScheduleTitle = "";
+                this.currentAssignmentGoalNumber = "";
+                this.currentAssignmentAchievementNumber = "";
 
 
                 const token = localStorage.getItem("token");
@@ -78,15 +78,14 @@ export default {
                     this.currentAssignmentGoalNumber = lastMondayAssigment.schedule.goals.length;
                     this.currentAssignmentAchievementNumber = sundayEndDate;
 
-                    let currentWeekAchievements  = this.calendar.achievements.filter(achievement =>
-                    {
+                    let currentWeekAchievements  = this.calendar.achievements.filter(achievement => ((new Date(achievement.date).getTime()) >= currentMondayStartDate.getTime()) && ((new Date(achievement.date).getTime()) < sundayEndDate.getTime()) );
 
-                        console.log("currentWeekAchievements");
-                        console.log(currentMondayStartDate.toISOString())
-                        console.log(sundayEndDate.toISOString())
-                        console.log(achievement.date);
-                        console.log("currentWeekAchievements");
-                    })
+                        // console.log("currentWeekAchievements");
+                        // console.log(currentMondayStartDate.getTime())
+                        // console.log(sundayEndDate.getTime())
+                        // console.log(new Date(achievement.date).getTime());
+                        // console.log("currentWeekAchievements");
+
 
                     this.currentAssignmentAchievementNumber = currentWeekAchievements.length;
 
