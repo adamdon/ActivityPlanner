@@ -182,6 +182,7 @@ export default {
                 {
                     // console.log(data);
                     this.assignments = data;
+                    this.emitter.emit("fetchCalendar");
                 }
                 else
                 {

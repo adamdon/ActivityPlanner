@@ -18,6 +18,13 @@ export default {
 
             async fetchCalendar()
             {
+                this.calendar = null;
+                this.currentAssignmentDate = "None";
+                this.currentAssignmentScheduleTitle = "None";
+                this.currentAssignmentGoalNumber = "None";
+                this.currentAssignmentAchievementNumber = "None";
+
+
                 const token = localStorage.getItem("token");
 
 
@@ -81,6 +88,8 @@ export default {
                         console.log("currentWeekAchievements");
                     })
 
+                    this.currentAssignmentAchievementNumber = currentWeekAchievements.length;
+
 
 
                 }
@@ -98,6 +107,7 @@ export default {
     async mounted()
     {
         await this.fetchCalendar();
+        this.emitter.on("fetchCalendar", () => this.fetchCalendar());
 
     },
 

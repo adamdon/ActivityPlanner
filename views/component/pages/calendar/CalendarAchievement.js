@@ -33,6 +33,7 @@ export default {
                     {
                         // console.log(data);
                         this.achievements = data;
+                        this.emitter.emit("fetchCalendar");
                     }
                     else
                     {
