@@ -31,11 +31,6 @@ export default {
 
             async fetchCalendar()
             {
-                this.calendar = null;
-                this.currentAssignmentDate = "None";
-                this.currentAssignmentScheduleTitle = "";
-                this.currentAssignmentGoalNumber = "";
-                this.currentAssignmentAchievementNumber = "";
 
 
                 const token = localStorage.getItem("token");
@@ -121,13 +116,6 @@ export default {
 
 
 
-                    //set class name for each type icon
-                    for(let achievement of currentWeekAchievements)
-                    {
-
-
-                    }
-
 
 
                     //get achievements for each day of the week
@@ -162,6 +150,7 @@ export default {
                     let tableDataFull = [];
                     for(let rowIndex = 0; rowIndex < tableMaxRows; rowIndex++)
                     {
+                        //create row to the max amount and fill unneeded with blanks
                         let tableDataRow = [];
 
                         for(let dayAchievements of weekAchievements)
@@ -171,6 +160,7 @@ export default {
                             if(dayAchievements[rowIndex])
                             {
 
+                                //set data cell content
                                 if(dayAchievements[rowIndex].type === "running")
                                 {
                                     tableDataCell.text = "Running " + dayAchievements[rowIndex].achieved + "km";
@@ -216,9 +206,6 @@ export default {
                     }
                     this.tableDataFull = tableDataFull;
 
-                    console.log("tableDataFull");
-                    console.log(tableDataFull);
-                    console.log("tableDataFull");
 
 
 
@@ -242,11 +229,17 @@ export default {
 
 
 
-
-
-
                     this.currentAssignmentAchievementNumber = currentWeekAchievements.length;
 
+
+                }
+                else
+                {
+                    this.currentAssignmentDate = "None";
+                    this.currentAssignmentScheduleTitle = "";
+                    this.currentAssignmentGoalNumber = "";
+                    this.currentAssignmentAchievementNumber = "";
+                    // this.tableDataFull = [];
 
 
                 }
