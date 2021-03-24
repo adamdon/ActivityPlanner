@@ -215,7 +215,7 @@ export default {
 
                     for(let goal of lastMondayAssigment.schedule.goals)
                     {
-                        let goalRow = {type: "", target: 0, achieved: 0, progress: 0, complete: false}
+                        let goalRow = {type: "", target: 0, achieved: 0, progress: 0, progressClass: "bg-info", complete: false}
 
                         let goalTypeAchievements = currentWeekAchievements.filter(achievement => achievement.type === goal.type);
 
@@ -232,22 +232,26 @@ export default {
                                 progress = 100;
                             }
 
+                            let progressClass = "bg-info";
+
                             let complete = false;
                             if(progress === 100)
                             {
                                 complete = true;
+                                progressClass = "bg-success";
                             }
 
                             goalRow.type = type;
                             goalRow.target = target;
                             goalRow.achieved = achieved;
                             goalRow.progress = progress;
+                            goalRow.progressClass = progressClass;
                             goalRow.complete = complete;
 
                         }
                         else //if this goal has no logged achievements
                         {
-                            goalRow = {type: goal.type, target: goal.target, achieved: 0, progress: 0, complete: false}
+                            goalRow = {type: goal.type, target: goal.target, achieved: 0, progress: 0, progressClass: "bg-info", complete: false}
                         }
                         goalDataFull.push(goalRow);
                     }
@@ -409,7 +413,7 @@ export default {
 
           <thead>
             <tr class="table-active">
-              <th class="text-center" colspan="5">Goal Progress</th>
+              <th class="text-center" colspan="4">Goal Progress</th>
             </tr>
 
             <tr class="table-active">
@@ -417,7 +421,7 @@ export default {
               <th scope="col">Target</th>
               <th scope="col">Achieved</th>
               <th scope="col">Progress</th>
-              <th scope="col">Complete</th>
+<!--              <th scope="col">Complete</th>-->
 
             </tr>
 
@@ -429,8 +433,12 @@ export default {
               <td>{{ goalRow.type }}</td>
               <td>{{ goalRow.target }}</td>
               <td>{{ goalRow.achieved }}</td>
-              <td>{{ goalRow.progress }}</td>
-              <td>{{ goalRow.complete }}</td>            
+              <td :width="800">
+                <div class="progress">
+                  <div :class="goalRow.progressClass" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"  :style="{width: goalRow.progress + '%'}">{{goalRow.progress + "%"}}</div>
+                </div>
+              </td>
+<!--              <td>{{ goalRow.complete }}</td>            -->
             </tr>
             
 
