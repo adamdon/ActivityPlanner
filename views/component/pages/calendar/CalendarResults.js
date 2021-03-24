@@ -120,6 +120,16 @@ export default {
                     currentWeekAchievements.sort((a, b) => (new Date(a.inputDate)) - (new Date(b.inputDate)) )
 
 
+
+                    //set class name for each type icon
+                    for(let achievement of currentWeekAchievements)
+                    {
+
+
+                    }
+
+
+
                     //get achievements for each day of the week
                     let currentMonAchievements = currentWeekAchievements.filter(achievement => new Date(achievement.date).getTime() === currentMonDate.getTime());
                     let currentTueAchievements = currentWeekAchievements.filter(achievement => new Date(achievement.date).getTime() === currentTueDate.getTime());
@@ -156,15 +166,47 @@ export default {
 
                         for(let dayAchievements of weekAchievements)
                         {
-                            let tableDataCell = "";
+                            let tableDataCell = {text: "", typeIconClass: ""};
 
                             if(dayAchievements[rowIndex])
                             {
-                                tableDataCell = (dayAchievements[rowIndex].type + " " + dayAchievements[rowIndex].achieved)
+
+                                if(dayAchievements[rowIndex].type === "running")
+                                {
+                                    tableDataCell.text = "Running " + dayAchievements[rowIndex].achieved + "km";
+                                    tableDataCell.typeIconClass = "fas fa-running";
+                                }
+                                else if(dayAchievements[rowIndex].type === "walking")
+                                {
+                                    tableDataCell.text = "Walking " + dayAchievements[rowIndex].achieved + "km";
+                                    tableDataCell.typeIconClass = "fas fa-hiking";
+                                }
+                                else if(dayAchievements[rowIndex].type === "swimming")
+                                {
+                                    tableDataCell.text = "Swimming " + dayAchievements[rowIndex].achieved + "m";
+                                    tableDataCell.typeIconClass = "fas fa-swimmer";
+                                }
+                                else if(dayAchievements[rowIndex].type === "weights")
+                                {
+                                    tableDataCell.text = "Weights " + dayAchievements[rowIndex].achieved + " sets";
+                                    tableDataCell.typeIconClass = "fas fa-dumbbell";
+                                }
+                                else if(dayAchievements[rowIndex].type === "yoga")
+                                {
+                                    tableDataCell.text = "Yoga " + dayAchievements[rowIndex].achieved + " hours";
+                                    tableDataCell.typeIconClass = "fas fa-pray";
+                                }
+                                else
+                                {
+                                    tableDataCell.text = (dayAchievements[rowIndex].type + " " + dayAchievements[rowIndex].achieved)
+                                    tableDataCell.typeIconClass = "";
+                                }
+
                             }
                             else
                             {
-                                tableDataCell = "None";
+                                tableDataCell.text = " ";
+                                tableDataCell.typeIconClass = "";
                             }
 
                             tableDataRow.push(tableDataCell);
@@ -238,31 +280,31 @@ export default {
         <!----------- current table start ---------------->
         <div class="table-responsive">
 
-          <table class="table table-sm table-hover table-dark table-bordered rounded">
+          <table class="table table-sm table-hover table-dark table-bordered table-striped rounded">
 
             <thead>
-              <tr>
+              <tr class="table-active">
                 <th class="text-center" colspan="7">Weekly Achievements</th>
               </tr>
 
-              <tr>
-                <th scope="col">Monday</th>
-                <th scope="col">Tuesday</th>
-                <th scope="col">Wednesday</th>
-                <th scope="col">Thursday</th>
-                <th scope="col">Friday</th>
-                <th scope="col">Saturday</th>
-                <th scope="col">Sunday</th>
+              <tr class="table-active">
+                <th scope="col" class="text-center" >Monday</th>
+                <th scope="col" class="text-center" >Tuesday</th>
+                <th scope="col" class="text-center" >Wednesday</th>
+                <th scope="col" class="text-center" >Thursday</th>
+                <th scope="col" class="text-center" >Friday</th>
+                <th scope="col" class="text-center" >Saturday</th>
+                <th scope="col" class="text-center" >Sunday</th>
               </tr>
 
-              <tr>
-                <th scope="col">{{ this.currentMonDateText }}</th>
-                <th scope="col">{{ this.currentTueDateText }}</th>
-                <th scope="col">{{ this.currentWedDateText }}</th>
-                <th scope="col">{{ this.currentThuDateText }}</th>
-                <th scope="col">{{ this.currentFriDateText }}</th>
-                <th scope="col">{{ this.currentSatDateText }}</th>
-                <th scope="col">{{ this.currentSunDateText }}</th>
+              <tr class="table-active">
+                <th scope="col" class="text-center" >{{ this.currentMonDateText }}</th>
+                <th scope="col" class="text-center" >{{ this.currentTueDateText }}</th>
+                <th scope="col" class="text-center" >{{ this.currentWedDateText }}</th>
+                <th scope="col" class="text-center" >{{ this.currentThuDateText }}</th>
+                <th scope="col" class="text-center" >{{ this.currentFriDateText }}</th>
+                <th scope="col" class="text-center" >{{ this.currentSatDateText }}</th>
+                <th scope="col" class="text-center" >{{ this.currentSunDateText }}</th>
               </tr>
 
             </thead>
@@ -270,7 +312,7 @@ export default {
             <tbody>
 
               <tr v-for="tableDataRow in tableDataFull">
-                <td v-for="tableDataCell in tableDataRow">{{tableDataCell}}</td>
+                <td v-for="tableDataCell in tableDataRow" class="text-center"> <i :class="tableDataCell.typeIconClass"></i> {{ tableDataCell.text}}</td>
               </tr>
                             
             </tbody>
@@ -288,11 +330,11 @@ export default {
         <table class="table table-sm table-hover table-dark table-bordered rounded">
 
           <thead>
-            <tr>
+            <tr class="table-active">
               <th class="text-center" colspan="4">Current Assignment</th>
             </tr>
 
-            <tr>
+            <tr class="table-active">
               <th scope="col">Week Starting</th>
               <th scope="col">Schedule Title</th>
               <th scope="col">Goals Number</th>
