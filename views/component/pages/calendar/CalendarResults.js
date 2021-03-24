@@ -19,6 +19,8 @@ export default {
             currentSatDateText: "",
             currentSunDateText: "",
 
+            tableDataFull: [["", "", "", "", "", "", ""], ["", "", "", "", "", "", ""], ["", "", "", "", "", "", ""]],
+
 
 
         };
@@ -125,6 +127,59 @@ export default {
 
 
 
+
+                    //Create an week array containing all day arrays
+                    let weekAchievements = [currentMonAchievements, currentTueAchievements, currentWedAchievements, currentThuAchievements, currentFriAchievements, currentSatAchievements, currentSunAchievements];
+
+
+                    //get max amount of table rows from the longest dayAchievements in week
+                    let tableMaxRows = 0;
+                    for (let dayAchievements of weekAchievements)
+                    {
+                        if(dayAchievements.length > tableMaxRows)
+                        {
+                            tableMaxRows = dayAchievements.length;
+                        }
+                    }
+
+
+
+                    //Convert weekAchievements into table formatted tableDataFull with Rows and Cells
+                    let tableDataFull = [];
+
+                    for(let rowIndex = 0; rowIndex < tableMaxRows; rowIndex++)
+                    {
+                        let tableDataRow = [];
+
+                        for(let dayAchievements of weekAchievements)
+                        {
+                            let tableDataCell = "";
+
+                            if(dayAchievements[rowIndex])
+                            {
+                                tableDataCell = (dayAchievements[rowIndex].type + " " + dayAchievements[rowIndex].achieved)
+                            }
+                            else
+                            {
+                                tableDataCell = "None";
+                            }
+
+                            tableDataRow.push(tableDataCell);
+                        }
+
+                        tableDataFull.push(tableDataRow);
+                    }
+
+                    this.tableDataFull = tableDataFull;
+
+                    console.log("tableDataFull");
+                    console.log(tableDataFull);
+                    console.log("tableDataFull");
+
+
+
+                    console.log("tableMaxRows");
+                    console.log(tableMaxRows);
                     console.log(currentMonAchievements);
                     console.log(currentTueAchievements);
                     console.log(currentWedAchievements);
@@ -223,17 +278,11 @@ export default {
             </thead>
 
             <tbody>
-              <tr>
 
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-
+              <tr v-for="tableDataRow in tableDataFull">
+                <td v-for="tableDataCell in tableDataRow">{{tableDataCell}}</td>
               </tr>
+                            
             </tbody>
 
           </table>
