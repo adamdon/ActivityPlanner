@@ -20,6 +20,8 @@ export default {
             currentSunDateText: "",
 
             tableDataFull: [["", "", "", "", "", "", ""], ["", "", "", "", "", "", ""], ["", "", "", "", "", "", ""]],
+            goalDataFull: [],
+
 
 
 
@@ -208,6 +210,53 @@ export default {
 
 
 
+                    //Format Goals Table
+                    let goalDataFull = [];
+
+                    for(let goal of lastMondayAssigment.schedule.goals)
+                    {
+                        let goalRow = {type: "", target: 0, achieved: 0, progress: 0, complete: false}
+
+                        let goalTypeAchievements = currentWeekAchievements.filter(achievement => achievement.type === goal.type);
+
+                        if(!(goalTypeAchievements.length === 0)) //if achievements for this goal are logged
+                        {
+
+                            let type = goal.type;
+                            let target = goal.target;
+                            let achieved = goalTypeAchievements.reduce((a, b) => a + b.achieved, 0);
+
+                            let progress = Math.round((achieved / target) * 100)
+                            if(progress > 100)
+                            {
+                                progress = 100;
+                            }
+
+                            let complete = false;
+                            if(progress === 100)
+                            {
+                                complete = true;
+                            }
+
+                            goalRow.type = type;
+                            goalRow.target = target;
+                            goalRow.achieved = achieved;
+                            goalRow.progress = progress;
+                            goalRow.complete = complete;
+
+                        }
+                        else //if this goal has no logged achievements
+                        {
+                            goalRow = {type: goal.type, target: goal.target, achieved: 0, progress: 0, complete: false}
+                        }
+                        goalDataFull.push(goalRow);
+                    }
+                    this.goalDataFull = goalDataFull;
+
+                    console.log(goalDataFull);
+
+
+
 
 
 
@@ -350,6 +399,46 @@ export default {
         </table>
 
         <!----------- week table start ---------------->
+
+
+
+
+        <!----------- Goal Progress table start ---------------->
+
+        <table class="table table-sm table-hover table-dark table-bordered rounded">
+
+          <thead>
+            <tr class="table-active">
+              <th class="text-center" colspan="5">Goal Progress</th>
+            </tr>
+
+            <tr class="table-active">
+              <th scope="col">Type</th>
+              <th scope="col">Target</th>
+              <th scope="col">Achieved</th>
+              <th scope="col">Progress</th>
+              <th scope="col">Complete</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            <tr v-for="goalRow in goalDataFull">
+              <td>{{ goalRow.type }}</td>
+              <td>{{ goalRow.target }}</td>
+              <td>{{ goalRow.achieved }}</td>
+              <td>{{ goalRow.progress }}</td>
+              <td>{{ goalRow.complete }}</td>            
+            </tr>
+            
+
+          </tbody>
+
+        </table>
+
+        <!----------- Goal Progress table start ---------------->
 
 
 

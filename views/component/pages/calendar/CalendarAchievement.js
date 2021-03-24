@@ -196,20 +196,7 @@ export default {
       <div class="card text-white bg-primary">
           <div class="card-header"><i class="fas fa-star"></i> Record Achievement</div>
           <div class="card-body">
-
-            <!----------- Selected Schedule start  ---------------->
-
-            <div class="alert alert-primary" role="alert">
-              <span class="alert dark  p-2 font-weight-bold"><span class="badge badge-secondary">Current Assignment week starting: </span> {{ assignmentWeek }} </span>
-            </div>
-            <!----------- Selected Schedule end  ---------------->
-
-
-
-
-
-
-            <div class="divider my-4 bg-dark"></div>
+            
 
 
             <!----------- start of new goal  ---------------->
