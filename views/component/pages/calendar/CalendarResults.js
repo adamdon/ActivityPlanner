@@ -116,6 +116,10 @@ export default {
                     let currentWeekAchievements = this.calendar.achievements.filter(achievement => ((new Date(achievement.date).getTime()) >= currentMondayStartDate.getTime()) && ((new Date(achievement.date).getTime()) < sundayEndDate.getTime()));
 
 
+                    //Sort dates by ascending so new cells are added to last row
+                    currentWeekAchievements.sort((a, b) => (new Date(a.inputDate)) - (new Date(b.inputDate)) )
+
+
                     //get achievements for each day of the week
                     let currentMonAchievements = currentWeekAchievements.filter(achievement => new Date(achievement.date).getTime() === currentMonDate.getTime());
                     let currentTueAchievements = currentWeekAchievements.filter(achievement => new Date(achievement.date).getTime() === currentTueDate.getTime());
@@ -146,7 +150,6 @@ export default {
 
                     //Convert weekAchievements into table formatted tableDataFull with Rows and Cells
                     let tableDataFull = [];
-
                     for(let rowIndex = 0; rowIndex < tableMaxRows; rowIndex++)
                     {
                         let tableDataRow = [];
@@ -169,24 +172,11 @@ export default {
 
                         tableDataFull.push(tableDataRow);
                     }
-
                     this.tableDataFull = tableDataFull;
 
                     console.log("tableDataFull");
                     console.log(tableDataFull);
                     console.log("tableDataFull");
-
-
-
-                    console.log("tableMaxRows");
-                    console.log(tableMaxRows);
-                    console.log(currentMonAchievements);
-                    console.log(currentTueAchievements);
-                    console.log(currentWedAchievements);
-                    console.log(currentThuAchievements);
-                    console.log(currentFriAchievements);
-                    console.log(currentSatAchievements);
-                    console.log(currentSunAchievements);
 
 
 
