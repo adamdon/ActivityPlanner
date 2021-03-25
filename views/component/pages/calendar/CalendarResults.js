@@ -350,6 +350,8 @@ export default {
         
         <!----------- week table start ---------------->
 
+        
+
 
         <div class="table-responsive">
 
@@ -439,48 +441,65 @@ export default {
 
 
         <!----------- current table start ---------------->
-        <div class="table-responsive">
 
-          <table class="table table-sm table-hover table-dark borderless rounded">
 
-            <thead>
-              <tr class="table-active">
-                <th class="text-center" colspan="7">Weekly Achievements</th>
-              </tr>
 
-              <tr class="table-active">
-                <th scope="col" class="text-center" >Monday</th>
-                <th scope="col" class="text-center" >Tuesday</th>
-                <th scope="col" class="text-center" >Wednesday</th>
-                <th scope="col" class="text-center" >Thursday</th>
-                <th scope="col" class="text-center" >Friday</th>
-                <th scope="col" class="text-center" >Saturday</th>
-                <th scope="col" class="text-center" >Sunday</th>
-              </tr>
 
-              <tr class="table-active">
-                <th scope="col" class="text-center" >{{ this.currentMonDateText }}</th>
-                <th scope="col" class="text-center" >{{ this.currentTueDateText }}</th>
-                <th scope="col" class="text-center" >{{ this.currentWedDateText }}</th>
-                <th scope="col" class="text-center" >{{ this.currentThuDateText }}</th>
-                <th scope="col" class="text-center" >{{ this.currentFriDateText }}</th>
-                <th scope="col" class="text-center" >{{ this.currentSatDateText }}</th>
-                <th scope="col" class="text-center" >{{ this.currentSunDateText }}</th>
-              </tr>
+        <div data-simplebar data-simplebar-auto-hide="false" class="overflow-auto" style="height: 218px;">
 
-            </thead>
 
-            <tbody>
+          <div class="table-responsive">
 
-              <tr v-for="tableDataRow in tableDataFull">
-                <td v-for="tableDataCell in tableDataRow" class="text-center"> <i :class="tableDataCell.typeIconClass"></i> {{ tableDataCell.text}}</td>
-              </tr>
+            <table class="table table-sm table-hover table-dark borderless rounded">
 
-            </tbody>
+              <thead>
+                <tr class="table-active">
+                  <th class="text-center" colspan="7">Weekly Achievements</th>
+                </tr>
 
-          </table>
+                <tr class="table-active">
+                  <th scope="col" class="text-center" >Monday</th>
+                  <th scope="col" class="text-center" >Tuesday</th>
+                  <th scope="col" class="text-center" >Wednesday</th>
+                  <th scope="col" class="text-center" >Thursday</th>
+                  <th scope="col" class="text-center" >Friday</th>
+                  <th scope="col" class="text-center" >Saturday</th>
+                  <th scope="col" class="text-center" >Sunday</th>
+                </tr>
 
-        </div>
+                <tr class="table-active">
+                  <th scope="col" class="text-center" >{{ this.currentMonDateText }}</th>
+                  <th scope="col" class="text-center" >{{ this.currentTueDateText }}</th>
+                  <th scope="col" class="text-center" >{{ this.currentWedDateText }}</th>
+                  <th scope="col" class="text-center" >{{ this.currentThuDateText }}</th>
+                  <th scope="col" class="text-center" >{{ this.currentFriDateText }}</th>
+                  <th scope="col" class="text-center" >{{ this.currentSatDateText }}</th>
+                  <th scope="col" class="text-center" >{{ this.currentSunDateText }}</th>
+                </tr>
+
+              </thead>
+
+              <tbody>
+
+                <tr v-for="tableDataRow in tableDataFull">
+                  <td v-for="tableDataCell in tableDataRow" class="text-center"> <i :class="tableDataCell.typeIconClass"></i> {{ tableDataCell.text}}</td>
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+
+        </div> <!-- scrollbar end -->
+        
+        
+        
+        
+        
+        
+
         <!----------- current table end ---------------->
         
         
