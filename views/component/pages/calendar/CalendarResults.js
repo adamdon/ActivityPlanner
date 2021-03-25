@@ -421,7 +421,7 @@ export default {
                 <td><i :class="goalRow.typeIconClass"></i> {{ goalRow.type.charAt(0).toUpperCase() + goalRow.type.slice(1)  }}</td>
                 <td>{{ goalRow.target }}</td>
                 <td>{{ goalRow.achieved }}</td>
-                <td :width="800">
+                <td :width="800" class="align-middle">
                   <div class="progress">
                     <div :class="goalRow.progressClass" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"  :style="{width: goalRow.progress + '%'}"> {{goalRow.progress + "%"}}</div>
                   </div>
