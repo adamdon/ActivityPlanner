@@ -215,7 +215,7 @@ export default {
 
                     for(let goal of lastMondayAssigment.schedule.goals)
                     {
-                        let goalRow = {type: "", target: 0, achieved: 0, progress: 0, progressClass: "bg-info", complete: false}
+                        let goalRow = {type: "", typeIconClass: "", target: 0, achieved: 0, progress: 0, progressClass: "bg-info", complete: false}
 
                         let goalTypeAchievements = currentWeekAchievements.filter(achievement => achievement.type === goal.type);
 
@@ -251,16 +251,41 @@ export default {
                         }
                         else //if this goal has no logged achievements
                         {
-                            goalRow = {type: goal.type, target: goal.target, achieved: 0, progress: 0, progressClass: "bg-info", complete: false}
+                            goalRow = {type: goal.type, typeIconClass: "", target: goal.target, achieved: 0, progress: 0, progressClass: "bg-info", complete: false}
                         }
+
+
+                        //set typeIconClass
+                        if(goal.type === "running")
+                        {
+                            goalRow.typeIconClass = "fas fa-running";
+                        }
+                        else if(goal.type === "walking")
+                        {
+                            goalRow.typeIconClass = "fas fa-hiking";
+                        }
+                        else if(goal.type === "swimming")
+                        {
+                            goalRow.typeIconClass = "fas fa-swimmer";
+                        }
+                        else if(goal.type === "weights")
+                        {
+                            goalRow.typeIconClass = "fas fa-dumbbell";
+                        }
+                        else if(goal.type === "yoga")
+                        {
+                            goalRow.typeIconClass = "fas fa-pray";
+                        }
+                        else
+                        {
+                            goalRow.typeIconClass = "";
+                        }
+
                         goalDataFull.push(goalRow);
                     }
                     this.goalDataFull = goalDataFull;
 
-                    console.log(goalDataFull);
-
-
-
+                    // console.log(goalDataFull);
 
 
 
@@ -391,12 +416,12 @@ export default {
             <tbody>
 
               <tr v-for="goalRow in goalDataFull">
-                <td>{{ goalRow.type }}</td>
+                <td><i :class="goalRow.typeIconClass"></i> {{ goalRow.type.charAt(0).toUpperCase() + goalRow.type.slice(1)  }}</td>
                 <td>{{ goalRow.target }}</td>
                 <td>{{ goalRow.achieved }}</td>
                 <td :width="800">
                   <div class="progress">
-                    <div :class="goalRow.progressClass" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"  :style="{width: goalRow.progress + '%'}">{{goalRow.progress + "%"}}</div>
+                    <div :class="goalRow.progressClass" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"  :style="{width: goalRow.progress + '%'}"> {{goalRow.progress + "%"}}</div>
                   </div>
                 </td>
                 <!--              <td>{{ goalRow.complete }}</td>            -->
