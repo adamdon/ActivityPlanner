@@ -4,6 +4,7 @@ import achievementAllRead from "./routes/api/achievementAllRead.js"
 import achievementCreate from "./routes/api/achievementCreate.js"
 import achievementDelete from "./routes/api/achievementDelete.js"
 import calendarRead from "./routes/api/calendarRead.js"
+import calendarAssignmentRead from "./routes/api/calendarAssignmentRead.js"
 import assignmentAllRead from "./routes/api/assignmentAllRead.js"
 import assignmentCreate from "./routes/api/assignmentCreate.js"
 import assignmentDelete from "./routes/api/assignmentDelete.js"
@@ -28,6 +29,7 @@ router.all("/api/achievementAllRead", achievementAllRead);
 router.all("/api/achievementCreate", achievementCreate);
 router.all("/api/achievementDelete", achievementDelete);
 router.all("/api/calendarRead", calendarRead);
+router.all("/api/calendarAssignmentRead", calendarAssignmentRead);
 router.all("/api/assignmentAllRead", assignmentAllRead);
 router.all("/api/assignmentCreate", assignmentCreate);
 router.all("/api/assignmentDelete", assignmentDelete);
