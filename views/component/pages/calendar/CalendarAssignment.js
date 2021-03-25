@@ -317,6 +317,9 @@ export default {
               <button  v-on:click=""  type="button"
                        class="list-group-item list-group-item-action bg-primary text-white border-dark shadow-lg rounded">
                 <span class="alert primary  p-2"> <button v-on:click="deleteAssignment(assignment)" type="button" class="bg-dark text-white border-dark shadow-lg rounded"><i class="fas fa-trash-alt"></i></button> </span>
+                
+                <span class="alert primary  p-2"><a v-bind:href="'http://localhost/share/' + assignment._id" target="_blank" > <button type="button" class="bg-dark text-white border-dark shadow-lg rounded"><i class="fas fa-share-alt"></i></button> </a> </span>
+                
                 <span class="alert primary  p-2"><span class="badge badge-secondary"> Date: </span> {{ assignment.date.substring(0, 10) }} </span>
                 <span class="alert primary  p-2"><span class="badge badge-secondary"> Schedule: </span> {{ assignment.schedule.title }} </span>
 
