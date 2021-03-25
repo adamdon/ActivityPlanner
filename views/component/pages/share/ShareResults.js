@@ -364,7 +364,7 @@ export default {
 
     template: `
       <div class="card text-white bg-primary">
-      <div class="card-header"><i class="fas fa-poll-h"></i> Calendar Results</div>
+      <div class="card-header"><i class="fas fa-share-alt"></i> Shared Calendar Results</div>
       <div class="card-body">
 
 
