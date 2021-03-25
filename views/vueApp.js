@@ -2,7 +2,8 @@ import Navbar from "./component/Navbar.js";
 import UserPage from './component/pages/user/UserPage.js';
 import HomePage from "./component/pages/home/HomePage.js";
 import ScheduleTemplatePage from "./component/pages/schedule/ScheduleTemplatePage.js";
-import CalendarPage from "./component/pages/Calendar/CalendarPage.js"
+import CalendarPage from "./component/pages/calendar/CalendarPage.js"
+import SharePage from "./component/pages/share/SharePage.js"
 import NotFoundPage from "./component/NotFoundPage.js";
 
 
@@ -38,6 +39,7 @@ const routes =
         { path: '/user', component: UserPage },
         { path: '/schedule', component: ScheduleTemplatePage },
         { path: '/calendar', component: CalendarPage },
+        { path: '/share/:assignment_id', component: SharePage },
         { path: '/:pathMatch(.*)*', name: 'NotFoundPage', component: NotFoundPage },
     ];
 
