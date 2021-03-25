@@ -367,6 +367,50 @@ export default {
       <div class="card-header"><i class="fas fa-poll-h"></i> Calendar Results</div>
       <div class="card-body">
 
+
+
+
+        <!-- User info start  -->
+        
+
+        <div v-if="calendar" class="container w-50 justify-content-center" >
+
+
+          <div class="clearfix">
+            <img v-bind:src="calendar.user.avatar"  class="float-left pull-left mr-4 rounded-circle" style="width: 80px" alt="User Avatar">
+
+            <h6>&nbsp;</h6>
+            <h5 class="card-title">{{currentAssignmentDate}} results for {{calendar.user.name}}</h5>
+          </div>
+
+          <div class="divider my-4 bg-dark"></div>
+
+          
+        </div>
+
+        <!-- User info end  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <!----------- error start ---------------->
 
         <div v-if="errorAlert" class="alert alert-danger" role="alert">
@@ -409,7 +453,7 @@ export default {
           </table>
         
         </div>
-        
+
 
 
         <!----------- week table start ---------------->
