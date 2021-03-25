@@ -168,3 +168,10 @@ body
     left: 0;
     top: 0;
 }
+
+
+
+.borderless tr, .borderless td, .borderless th
+{
+    border: none !important;
+}

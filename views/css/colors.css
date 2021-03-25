@@ -141,11 +141,11 @@ button.bg-primary:focus
     border-color: #182931;
 }
 
-.table-primary,
-.table-primary > th,
-.table-primary > td
+.table-dark,
+.table-dark > th,
+.table-dark > td
 {
-    background-color: #a8c5d4;
+    background-color: #416d84 !important;
 }
 
 .table-hover .table-primary:hover

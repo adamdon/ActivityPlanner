@@ -322,11 +322,101 @@ export default {
       <div class="card-header"><i class="fas fa-poll-h"></i> Calendar Results</div>
       <div class="card-body">
 
+        
+        <!----------- week table start ---------------->
+
+
+        <div class="table-responsive">
+
+          <table class="table table-sm table-hover table-dark borderless rounded">
+
+            <thead>
+              <tr class="table-active">
+                <th class="text-center" colspan="4">Current Assignment</th>
+              </tr>
+
+              <tr class="table-active">
+                <th scope="col">Schedule Title</th>
+                <th scope="col">Week Starting</th>
+                <th scope="col">Goals Number</th>
+                <th scope="col">Achievement Number</th>
+              </tr>
+
+            </thead>
+
+            <tbody>
+              <tr>
+                
+                <td>{{ this.currentAssignmentScheduleTitle }}</td>
+                <td>{{ this.currentAssignmentDate }}</td>
+                <td>{{ this.currentAssignmentGoalNumber }}</td>
+                <td>{{ this.currentAssignmentAchievementNumber }}</td>
+
+              </tr>
+            </tbody>
+
+          </table>
+        
+        </div>
+        
+
+
+        <!----------- week table start ---------------->
+
+
+
+
+        <!----------- Goal Progress table start ---------------->
+
+        <div class="table-responsive">
+
+          <table class="table table-sm table-hover table-dark borderless rounded">
+
+            <thead>
+              <tr class="table-active">
+                <th class="text-center" colspan="4">Goal Progress</th>
+              </tr>
+
+              <tr class="table-active">
+                <th scope="col">Type</th>
+                <th scope="col">Target</th>
+                <th scope="col">Achieved</th>
+                <th scope="col">Progress</th>
+                <!--              <th scope="col">Complete</th>-->
+
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              <tr v-for="goalRow in goalDataFull">
+                <td>{{ goalRow.type }}</td>
+                <td>{{ goalRow.target }}</td>
+                <td>{{ goalRow.achieved }}</td>
+                <td :width="800">
+                  <div class="progress">
+                    <div :class="goalRow.progressClass" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"  :style="{width: goalRow.progress + '%'}">{{goalRow.progress + "%"}}</div>
+                  </div>
+                </td>
+                <!--              <td>{{ goalRow.complete }}</td>            -->
+              </tr>
+
+
+            </tbody>
+
+          </table>
+          
+        </div>
+        
+        <!----------- Goal Progress end start ---------------->
+
+
 
         <!----------- current table start ---------------->
         <div class="table-responsive">
 
-          <table class="table table-sm table-hover table-dark table-bordered table-striped rounded">
+          <table class="table table-sm table-hover table-dark borderless rounded">
 
             <thead>
               <tr class="table-active">
@@ -360,94 +450,15 @@ export default {
               <tr v-for="tableDataRow in tableDataFull">
                 <td v-for="tableDataCell in tableDataRow" class="text-center"> <i :class="tableDataCell.typeIconClass"></i> {{ tableDataCell.text}}</td>
               </tr>
-                            
+
             </tbody>
 
           </table>
 
         </div>
         <!----------- current table end ---------------->
-
-
-
-
-        <!----------- week table start ---------------->
-
-        <table class="table table-sm table-hover table-dark table-bordered rounded">
-
-          <thead>
-            <tr class="table-active">
-              <th class="text-center" colspan="4">Current Assignment</th>
-            </tr>
-
-            <tr class="table-active">
-              <th scope="col">Week Starting</th>
-              <th scope="col">Schedule Title</th>
-              <th scope="col">Goals Number</th>
-              <th scope="col">Achievement Number</th>
-            </tr>
-
-          </thead>
-
-          <tbody>
-            <tr>
-
-              <td>{{ this.currentAssignmentDate }}</td>
-              <td>{{ this.currentAssignmentScheduleTitle }}</td>
-              <td>{{ this.currentAssignmentGoalNumber }}</td>
-              <td>{{ this.currentAssignmentAchievementNumber }}</td>
-
-            </tr>
-          </tbody>
-
-        </table>
-
-        <!----------- week table start ---------------->
-
-
-
-
-        <!----------- Goal Progress table start ---------------->
-
-        <table class="table table-sm table-hover table-dark table-bordered rounded">
-
-          <thead>
-            <tr class="table-active">
-              <th class="text-center" colspan="4">Goal Progress</th>
-            </tr>
-
-            <tr class="table-active">
-              <th scope="col">Type</th>
-              <th scope="col">Target</th>
-              <th scope="col">Achieved</th>
-              <th scope="col">Progress</th>
-<!--              <th scope="col">Complete</th>-->
-
-            </tr>
-
-          </thead>
-
-          <tbody>
-
-            <tr v-for="goalRow in goalDataFull">
-              <td>{{ goalRow.type }}</td>
-              <td>{{ goalRow.target }}</td>
-              <td>{{ goalRow.achieved }}</td>
-              <td :width="800">
-                <div class="progress">
-                  <div :class="goalRow.progressClass" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"  :style="{width: goalRow.progress + '%'}">{{goalRow.progress + "%"}}</div>
-                </div>
-              </td>
-<!--              <td>{{ goalRow.complete }}</td>            -->
-            </tr>
-            
-
-          </tbody>
-
-        </table>
-
-        <!----------- Goal Progress table start ---------------->
-
+        
+        
 
 
       </div>
