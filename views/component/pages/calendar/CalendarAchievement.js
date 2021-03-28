@@ -11,6 +11,7 @@ export default {
             newAchievementNumber: "",
             errorAlert: "",
             successAlert: "",
+            isDisabled: false,
         };
     },
 
@@ -49,6 +50,8 @@ export default {
 
             async createAchievement()
             {
+                this.isDisabled = true;
+
                 const token = localStorage.getItem("token");
                 const achieved = this.newAchievementNumber;
                 const type = this.newAchievementType;
@@ -73,12 +76,14 @@ export default {
                 if(this.newAchievementNumber === "")
                 {
                     this.errorAlert = "Achievement amount not entered";
+                    this.isDisabled = false;
                     return;
                 }
 
                 if(this.newAchievementNumber === "")
                 {
                     this.errorAlert = "Achievement amount not entered";
+                    this.isDisabled = false;
                     return;
                 }
 
@@ -86,6 +91,7 @@ export default {
                 if(date === "")
                 {
                     this.errorAlert = "date not selected";
+                    this.isDisabled = false;
                     return;
                 }
 
@@ -100,12 +106,13 @@ export default {
                     const data = await response.json();
                     if ((data) && (!data.errors))
                     {
-                        // console.log(data);
+                        this.isDisabled = false;
                         this.successAlert = (" Saved Achievement of " + type + " for " + achieved);
                         await this.updateAchievements();
                     }
                     else
                     {
+                        this.isDisabled = false;
                         // console.log(data);
                         this.errorAlert = "Error: " + data.errors[0].msg;
                     }
@@ -121,6 +128,8 @@ export default {
 
             async deleteAchievement(achievement)
             {
+                this.isDisabled = true;
+
                 const token = localStorage.getItem("token");
                 const achievement_id = achievement._id;
 
@@ -136,10 +145,12 @@ export default {
                     if ((data) && (!data.errors))
                     {
                         // console.log(data);
+                        this.isDisabled = false;
                         await this.updateAchievements();
                     }
                     else
                     {
+                        this.isDisabled = false;
                         console.log(requestBody);
                         this.errorAlert = "Error: " + data.errors[0].msg;
                     }
@@ -203,11 +214,11 @@ export default {
             <div class="form-group input-group">
 
               <div class="input-group-prepend">
-                <button v-on:click="createAchievement" onclick="" class="btn btn-dark shadow" type="button"><i class="far fa-save"></i> Set Achievement</button>
+                <button v-bind:disabled="isDisabled" v-on:click="createAchievement" onclick="" class="btn btn-dark shadow" type="button"><i class="far fa-save"></i> Set Achievement</button>
               </div>
 
               <div class="input-group-prepend">
-                <select  v-model="newAchievementType" class="custom-select" id="inputGroupSelect01">
+                <select v-bind:disabled="isDisabled" v-model="newAchievementType" class="custom-select" id="inputGroupSelect01">
                   <option value="" selected disabled>Type...</option>
                   <option value="running">Running (km)</option>
                   <option value="walking">Walking (km)</option>
@@ -217,10 +228,10 @@ export default {
                 </select>
               </div>
 
-              <input v-model="newAchievementNumber" v-on:keyup.enter="createAchievement"  onsubmit="return false" class="form-control shadow"
+              <input v-bind:disabled="isDisabled" v-model="newAchievementNumber" v-on:keyup.enter="createAchievement"  onsubmit="return false" class="form-control shadow"
                      placeholder="Amount" type="number">
 
-              <input type="date" id="achievementDatepicker" placeholder="Date" autocomplete="off" class="form-control shadow"/>
+              <input v-bind:disabled="isDisabled" type="date" id="achievementDatepicker" placeholder="Date" autocomplete="off" class="form-control shadow"/>
 
 
             </div> <!-- form-group// -->
@@ -248,7 +259,7 @@ export default {
               <ul class="list-group">
                 <li v-for="achievement in achievements">
 
-                  <button  v-on:click=""  type="button"
+                  <button v-bind:disabled="isDisabled"  v-on:click=""  type="button"
                            class="list-group-item list-group-item-action bg-primary text-white border-dark shadow-lg rounded">
                     <span class="alert primary  p-2"> <button v-on:click="deleteAchievement(achievement)" type="button" class="bg-dark text-white border-dark shadow-lg rounded"><i class="fas fa-trash-alt"></i></button> </span>
                     <span class="alert primary  p-2"><span class="badge badge-secondary"> Date: </span> {{ achievement.date.substring(0, 10) }} </span>
