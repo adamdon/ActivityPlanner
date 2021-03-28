@@ -14,6 +14,8 @@ export default {
 
             errorAlert: "",
             successAlert: "",
+
+            isDisabled: false,
         };
     },
 
@@ -67,6 +69,8 @@ export default {
 
         async createGoal()
         {
+            this.isDisabled = true;
+
             const token = localStorage.getItem("token");
             const schedule_id = this.selectedSchedule._id;
             const type = this.newGoalType;
@@ -83,6 +87,7 @@ export default {
                 const data = await response.json();
                 if ((data) && (!data.errors))
                 {
+                    this.isDisabled = false;
                     this.successAlert = "Goal created successfully"
                     this.errorAlert = "";
                     await this.updateScheduleGoalSetterList();
@@ -90,7 +95,7 @@ export default {
                 }
                 else
                 {
-
+                    this.isDisabled = false;
                     this.successAlert = "";
                     this.errorAlert = "Error: " + data.errors[0].msg;
                 }
@@ -104,6 +109,8 @@ export default {
 
         async deleteGoal(goal)
         {
+            this.isDisabled = true;
+
             const token = localStorage.getItem("token");
             const schedule_id = this.selectedSchedule._id;
             const goal_id = goal._id;
@@ -120,6 +127,7 @@ export default {
                 const data = await response.json();
                 if ((data) && (!data.errors))
                 {
+                    this.isDisabled = false;
                     this.successAlert = "Goal deleted successfully"
                     this.errorAlert = "";
                     await this.updateScheduleGoalSetterList();
@@ -127,7 +135,7 @@ export default {
                 }
                 else
                 {
-
+                    this.isDisabled = false;
                     this.successAlert = "";
                     this.errorAlert = "Error: " + data.errors[0].msg;
                 }
@@ -175,11 +183,11 @@ export default {
         <div class="form-group input-group">
           
           <div class="input-group-prepend">
-            <button v-on:click="createGoal" onclick="" class="btn btn-dark shadow" type="button"><i class="far fa-save"></i> Create Goal</button>
+            <button v-on:click="createGoal" v-bind:disabled="isDisabled" onclick="" class="btn btn-dark shadow" type="button"><i class="far fa-save"></i> Create Goal</button>
           </div>
           
           <div class="input-group-prepend">
-            <select  v-model="newGoalType" class="custom-select" id="inputGroupSelect01">
+            <select  v-model="newGoalType" v-bind:disabled="isDisabled" class="custom-select" id="inputGroupSelect01">
               <option value="" selected>Type...</option>
               <option value="running">Running (km)</option>
               <option value="walking">Walking (km)</option>
@@ -189,7 +197,7 @@ export default {
             </select>
           </div>
           
-          <input v-model="newGoalNumber" v-on:keyup.enter="createGoal"  onsubmit="return false" class="form-control shadow"
+          <input v-model="newGoalNumber" v-on:keyup.enter="createGoal" v-bind:disabled="isDisabled" onsubmit="return false" class="form-control shadow"
                  placeholder="Number to achieve" type="number">
 
         </div> <!-- form-group// -->
@@ -217,7 +225,7 @@ export default {
           <ul class="list-group">
             <li v-for="goal in goals">
 
-              <button  v-on:click=""  type="button"
+              <button  v-on:click="" v-bind:disabled="isDisabled" type="button"
                        class="list-group-item list-group-item-action bg-primary text-white border-dark shadow-lg rounded">
                 <span class="alert primary  p-2"> <button v-on:click="deleteGoal(goal)" type="button" class="bg-dark text-white border-dark shadow-lg rounded"><i class="fas fa-trash-alt"></i></button> </span>
                 <span class="alert primary  p-2"><span class="badge badge-secondary"> Target: </span> {{ goal.target.toLocaleString('en-US', {minimumIntegerDigits: 4, useGrouping: false} ) }} </span>
