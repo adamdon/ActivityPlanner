@@ -12,6 +12,7 @@ export default {
             assignments: [],
             errorAlert: "",
             successAlert: "",
+            isDisabled: false,
         };
     },
 
@@ -74,6 +75,8 @@ export default {
 
         async assignSchedule()
         {
+            this.isDisabled = true;
+
             const token = localStorage.getItem("token");
             const schedule_id = this.selectedSchedule._id;
             const date = window.momentUtcDateText;
@@ -89,18 +92,21 @@ export default {
             if(this.selectedSchedule === "")
             {
                 this.errorAlert = "Schedule not selected";
+                this.isDisabled = false;
                 return;
             }
 
             if(typeof date === "undefined")
             {
                 this.errorAlert = "date not selected";
+                this.isDisabled = false;
                 return;
             }
 
             if(date === "")
             {
                 this.errorAlert = "date not selected4";
+                this.isDisabled = false;
                 return;
             }
 
@@ -115,12 +121,15 @@ export default {
                 const data = await response.json();
                 if ((data) && (!data.errors))
                 {
-                    // console.log(data);
+                    this.isDisabled = false;
+
                     this.successAlert = (this.selectedSchedule.title + " assigned to week starting " + date.substring(0, 10));
                     await this.updateAssignments();
                 }
                 else
                 {
+                    this.isDisabled = false;
+
                     // console.log(data);
                     this.errorAlert = "Error: " + data.errors[0].msg;
                 }
@@ -260,7 +269,7 @@ export default {
         <div class="form-group input-group">
 
           <div class="input-group-apppend">
-            <button v-on:click="assignSchedule" onclick="" class="btn btn-dark shadow" type="button"><i class="fas fa-file-signature"></i> Assign Schedule</button>
+            <button v-on:click="assignSchedule" onclick="" v-bind:disabled="isDisabled" class="btn btn-dark shadow" type="button"><i class="fas fa-file-signature"></i> Assign Schedule</button>
           </div>
 
           <div class="input-group-prepend">
@@ -270,7 +279,7 @@ export default {
 
 
 
-            <select v-model="scheduleTitle" @change="onChangeSelector($event)" class="custom-select" id="inputGroupSelect01">
+            <select v-model="scheduleTitle" @change="onChangeSelector($event)"  v-bind:disabled="isDisabled" class="custom-select" id="inputGroupSelect01">
               <option value="" selected disabled>Schedule Title</option>
               <option v-for="schedule in schedules">{{ schedule.title }}</option>
             </select>
@@ -281,7 +290,7 @@ export default {
           </div>
 
 
-          <input type="date" id="datepicker" placeholder="Pick Week" autocomplete="off" class="form-control shadow"/>
+          <input v-bind:disabled="isDisabled" type="date" id="datepicker" placeholder="Pick Week" autocomplete="off" class="form-control shadow"/>
 
 
         </div> <!-- form-group// -->
@@ -314,11 +323,11 @@ export default {
           <ul class="list-group">
             <li v-for="assignment in assignments">
 
-              <button  v-on:click=""  type="button"
+              <button v-bind:disabled="isDisabled"  v-on:click=""  type="button"
                        class="list-group-item list-group-item-action bg-primary text-white border-dark shadow-lg rounded">
-                <span class="alert primary  p-2"> <button v-on:click="deleteAssignment(assignment)" type="button" class="bg-dark text-white border-dark shadow-lg rounded"><i class="fas fa-trash-alt"></i></button> </span>
+                <span v-bind:disabled="isDisabled" class="alert primary  p-2"> <button v-on:click="deleteAssignment(assignment)"  type="button" class="bg-dark text-white border-dark shadow-lg rounded"><i class="fas fa-trash-alt"></i></button> </span>
                 
-                <span class="alert primary  p-2"><a v-bind:href="'http://localhost/share/' + assignment._id" target="_blank" > <button type="button" class="bg-dark text-white border-dark shadow-lg rounded"><i class="fas fa-share-alt"></i></button> </a> </span>
+                <span class="alert primary  p-2"><a v-bind:href="'/share/' + assignment._id"  target="_blank" > <button type="button" class="bg-dark text-white border-dark shadow-lg rounded"><i class="fas fa-share-alt"></i></button> </a> </span>
                 
                 <span class="alert primary  p-2"><span class="badge badge-secondary"> Date: </span> {{ assignment.date.substring(0, 10) }} </span>
                 <span class="alert primary  p-2"><span class="badge badge-secondary"> Schedule: </span> {{ assignment.schedule.title }} </span>
