@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import validator from 'validator';
 import {User} from "../../../models/User.js";
 import {Schedule} from "../../../models/Schedule.js";
+import {Assignment} from "../../../models/Assignment.js";
 
 import validateToken from "../../utilities/validateToken.js";
 
@@ -51,6 +52,11 @@ export default async function (request, response)
         {
             return response.status(400).json({errors: [{msg: "Schedule not found"}]});
         }
+
+
+        //Find and delete any assignments that use this schedule
+        const assignments = await Assignment.deleteMany({schedule: schedule_id});
+
 
 
         //Remove schedule is in database
