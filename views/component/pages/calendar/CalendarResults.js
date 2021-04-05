@@ -69,15 +69,30 @@ export default {
 
             populateCalendar()
             {
+                console.log(this.calendar);
+
+                let localDate = new Date();
+                localDate.setHours(0, 0, 0, 0);
+
+                let localTime = localDate.getTime();
+                let localOffsetTime = (localDate.getTimezoneOffset() * 60000);
+
+                let fakeUtcTime = (localTime - localOffsetTime);
+                let fakeUtcDate = new Date(fakeUtcTime);
+
+
+
                 //Get first day of current week
-                let currentMondayStartDate = new Date();
-                currentMondayStartDate.setHours(0, 0, 0, 0);
+                let currentMondayStartDate = fakeUtcDate;
                 currentMondayStartDate.setDate(currentMondayStartDate.getDate() + 1 - (currentMondayStartDate.getDay() || 7));
+
+
 
                 //get last day of current week
                 let sundayEndDate = new Date(currentMondayStartDate);
                 sundayEndDate.setDate(sundayEndDate.getDate() + 7);
                 sundayEndDate = new Date(sundayEndDate - 1);
+
 
                 //Check to see if there is an Assigment set for this week
                 let lastMondayAssigment = this.calendar.assignments.find(assignment => assignment.date === currentMondayStartDate.toISOString());
