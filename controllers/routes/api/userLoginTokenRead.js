@@ -55,7 +55,7 @@ export default async function (request, response)
             // noinspection JSUnresolvedVariable
             let jwtPayload = {user: {id: existingUser.id}};
             let jsonwebtokenSecret = process.env.JWT_SECRET;
-            let jwtOptions = {expiresIn: 360000};
+            let jwtOptions = {expiresIn: 31556952};
             jsonwebtoken.sign(jwtPayload, jsonwebtokenSecret, jwtOptions, (error, token) =>
             {
                 if (error) throw error;

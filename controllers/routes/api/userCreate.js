@@ -72,7 +72,7 @@ export default async function (request, response)
             //Return jsonwebtoken
             let jwtPayload = {user: {id: newUser.id}};
             let jsonwebtokenSecret = process.env.JWT_SECRET;
-            let jwtOptions = {expiresIn: 360000};
+            let jwtOptions = {expiresIn: 31556952};
             jsonwebtoken.sign(jwtPayload, jsonwebtokenSecret, jwtOptions, (error, token) =>
             {
                 if (error) throw error;
