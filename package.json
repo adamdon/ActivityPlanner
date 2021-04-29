@@ -10,6 +10,7 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
+    "nodemon": "^2.0.6",
     "bcryptjs": "^2.4.3",
     "connect-history-api-fallback": "^1.6.0",
     "connect-livereload": "^0.6.1",
@@ -23,6 +24,5 @@
     "validator": "^13.5.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.6"
   }
 }
