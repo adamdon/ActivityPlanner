@@ -5,7 +5,11 @@ A web application that lets you define your own training schedule for each week 
 
 ## Installation
 
-With node.js and npm installed run the following command from project root:
+With node.js and npm installed run the following commands from project root:
+
+```bash
+npm install
+```
 
 ```bash
 npm run server
