@@ -5,7 +5,7 @@ A web application that lets you define your own training schedule for each week 
 
 ## Installation
 
-With node.js and npm installed run the following commands from project root:
+With the latest version of node.js and npm installed run the following commands from project root:
 
 ```bash
 npm install
@@ -17,7 +17,7 @@ npm run server
 
 ## Configuration
 
-Place ".env" file into the project root directory with the following variables:
+Place a ".env" file into the project root directory or set environment variables with the following details:
 
 ```bash
 MONGO_URI=**************************
@@ -30,6 +30,8 @@ JWT_SECRET=*************************
 ```code
 Enter "http://localhost/" into the browser
 ```
+Or
+Visit: [https://activity-planner-app.herokuapp.com/](https://activity-planner-app.herokuapp.com/) for live deployment.
 
 
 ## License
